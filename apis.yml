@@ -1,8 +1,8 @@
-
 name: United States National Library of Medicine
 description: This is the description.
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-url: https://raw.githubusercontent.com/api-search/us-federal-government/main/_apis/united-states-national-library-of-medicine/apis.md
+url: >-
+  https://raw.githubusercontent.com/api-search/us-federal-government/main/_apis/united-states-national-library-of-medicine/apis.md
 created: 2024/01/01
 modified: 2024/01/01
 specificationVersion: '0.16'
@@ -32,9 +32,4 @@ maintainers:
   - FN: API Evangelist
     url: http://apievangelist.com
     email: info@apievangelist.com
-overlays:
-  - type: APIs.io Search
-    url: overlays/apis-io-search.yml
-  - type: API Evangelist Ratings
-    url: overlays/apis-io-search.yml
 aid: united-states-national-library-of-medicine
