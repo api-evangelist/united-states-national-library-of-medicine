@@ -22,7 +22,6 @@ apis:
     properties:
       - type: Documentation
         url: https://www.ncbi.nlm.nih.gov/home/develop/api/
-    overlays: []
     aid: >-
       united-states-national-library-of-medicine:united-states-national-library-of-medicine-blast-url-api
 common:
