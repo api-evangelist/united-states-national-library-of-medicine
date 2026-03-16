@@ -26,7 +26,7 @@ common:
   - url: https://www.ncbi.nlm.nih.gov/home/develop/api/
     type: Portal
 created: 2024/01/01
-modified: '2025-01-04'
+modified: '2026-03-16'
 description: >-
   The United States National Library of Medicine (NLM) is the world's largest
   biomedical library. It serves as a vital resource for researchers, healthcare
@@ -40,10 +40,9 @@ description: >-
   high-quality health information and advancing medical research to improve
   health and well-being for all.
 maintainers:
-  - FN: API Evangelist
-    url: http://apievangelist.com
-    email: info@apievangelist.com
-specificationVersion: '0.16'
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+specificationVersion: '0.19'
 type: Contract
 position: Consuming
 access: 3rd-Party
