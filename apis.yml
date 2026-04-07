@@ -6,7 +6,8 @@ apis:
       united-states-national-library-of-medicine:united-states-national-library-of-medicine-blast-url-api
     name: United States National Library of Medicine Blast URL API
     tags: []
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: >-
       https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html#developerinfo
@@ -21,24 +22,20 @@ apis:
 name: United States National Library of Medicine
 tags:
   - Federal Government
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: 
+  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 common:
   - url: https://www.ncbi.nlm.nih.gov/home/develop/api/
     type: Portal
 created: 2024/01/01
 modified: '2026-03-16'
 description: >-
-  The United States National Library of Medicine (NLM) is the world's largest
-  biomedical library. It serves as a vital resource for researchers, healthcare
-  professionals, and the general public by providing access to a vast collection
-  of biomedical literature and resources. The NLM offers a wide range of
-  services and resources, including online databases, digital archives, and
-  research tools that support medical research, education, and patient care.
-  Additionally, the NLM plays a key role in advancing the field of biomedical
-  informatics and promoting the dissemination of health information to improve
-  public health outcomes. Overall, the NLM is dedicated to promoting access to
-  high-quality health information and advancing medical research to improve
-  health and well-being for all.
+  The United States National Library of Medicine (NLM) is the world's largest biomedical
+  library. It serves as a vital resource for researchers, healthcare professionals,
+  and the general public by providing access to a vast collection of biomedical literature
+  and resources. The NLM offers a wide range of services and resources, including
+  online databases, digital archives, and research tools that support medical research,
+  education, and patient care.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
