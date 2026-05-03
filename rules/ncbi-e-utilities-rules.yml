@@ -1,0 +1,63 @@
+rules:
+  ncbi-operation-ids-required:
+    description: All operations must have operationIds.
+    message: Operation must have an operationId.
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: operationId
+      function: truthy
+    severity: error
+
+  ncbi-db-param-for-eutils:
+    description: E-utilities operations require a db parameter.
+    message: E-utilities operations should include a db query parameter.
+    given: "$.paths[?(@property =~ /esearch|efetch|esummary|elink/)][get].parameters[?(@.name == 'db')]"
+    then:
+      field: required
+      function: truthy
+    severity: error
+
+  ncbi-operations-have-tags:
+    description: All operations should have tags for grouping.
+    message: Operation must include at least one tag.
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: tags
+      function: truthy
+    severity: warn
+
+  ncbi-parameters-have-descriptions:
+    description: All parameters should have descriptions.
+    message: Parameter must have a description.
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: description
+      function: truthy
+    severity: warn
+
+  ncbi-success-responses:
+    description: Operations must document 200 success responses.
+    message: Operation must document a 200 success response.
+    given: "$.paths[*][get,post,put].responses"
+    then:
+      field: "200"
+      function: truthy
+    severity: error
+
+  ncbi-schemas-have-descriptions:
+    description: Schema components should have descriptions.
+    message: Schema component must have a description.
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+    severity: warn
+
+  ncbi-info-contact:
+    description: API info should include contact information.
+    message: API info block must contain a contact object.
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+    severity: warn

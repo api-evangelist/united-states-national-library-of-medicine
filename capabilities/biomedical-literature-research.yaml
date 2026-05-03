@@ -1,0 +1,229 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "NLM Biomedical Literature and Clinical Research"
+  description: >-
+    Unified capability for biomedical literature research and clinical trial
+    discovery workflows combining NCBI E-Utilities (PubMed, Entrez databases)
+    with ClinicalTrials.gov. Used by researchers, clinicians, bioinformaticians,
+    and healthcare professionals to search literature, find clinical trials,
+    retrieve gene data, and explore biomedical databases.
+  tags:
+    - Biomedical Research
+    - PubMed
+    - Clinical Trials
+    - Genomics
+    - Healthcare
+    - NLM
+    - Federal Government
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      NCBI_API_KEY: NCBI_API_KEY
+
+capability:
+  consumes:
+    - import: eutils
+      location: ./shared/ncbi-e-utilities.yaml
+    - import: clinicaltrials
+      location: ./shared/nlm-clinicaltrials.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: nlm-research-api
+      description: "Unified REST API for NLM biomedical literature and clinical research workflows."
+      resources:
+        - path: /v1/pubmed/search
+          name: pubmed-search
+          description: "Search PubMed biomedical literature database"
+          operations:
+            - method: GET
+              name: search-pubmed
+              description: "Search PubMed for articles by query, author, or topic"
+              call: "eutils.search-database"
+              with:
+                db: pubmed
+                term: "rest.query"
+                retmax: "rest.limit"
+                sort: "rest.sort"
+                mindate: "rest.mindate"
+                maxdate: "rest.maxdate"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/pubmed/articles/{pmids}
+          name: pubmed-articles
+          description: "Retrieve PubMed article records"
+          operations:
+            - method: GET
+              name: get-pubmed-articles
+              description: "Fetch full PubMed article records by PMID"
+              call: "eutils.fetch-records"
+              with:
+                db: pubmed
+                id: "rest.pmids"
+                rettype: abstract
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/gene/search
+          name: gene-search
+          description: "Search NCBI Gene database"
+          operations:
+            - method: GET
+              name: search-genes
+              description: "Search NCBI Gene database for gene records"
+              call: "eutils.search-database"
+              with:
+                db: gene
+                term: "rest.query"
+                retmax: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/trials/search
+          name: trial-search
+          description: "Search ClinicalTrials.gov for clinical trials"
+          operations:
+            - method: GET
+              name: search-trials
+              description: "Search clinical trials by condition, intervention, or status"
+              call: "clinicaltrials.search-studies"
+              with:
+                query.cond: "rest.condition"
+                query.intr: "rest.intervention"
+                filter.overallStatus: "rest.status"
+                filter.phase: "rest.phase"
+                pageSize: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/trials/{nctId}
+          name: trial-detail
+          description: "Retrieve a specific clinical trial"
+          operations:
+            - method: GET
+              name: get-trial
+              description: "Get complete clinical trial record by NCT ID"
+              call: "clinicaltrials.get-study"
+              with:
+                nctId: "rest.nctId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: nlm-research-mcp
+      transport: http
+      description: "MCP server for AI-assisted biomedical literature search and clinical research."
+      tools:
+        - name: search-pubmed
+          description: "Search PubMed for biomedical literature articles by topic, author, or keywords"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "eutils.search-database"
+          with:
+            db: pubmed
+            term: "tools.query"
+            retmax: "tools.max_results"
+            sort: "tools.sort"
+            mindate: "tools.start_date"
+            maxdate: "tools.end_date"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-pubmed-abstracts
+          description: "Retrieve PubMed article abstracts for a list of PMIDs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "eutils.fetch-records"
+          with:
+            db: pubmed
+            id: "tools.pmids"
+            rettype: abstract
+            retmode: text
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-pubmed-summaries
+          description: "Get PubMed document summaries including title, authors, and journal for PMIDs"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "eutils.get-summaries"
+          with:
+            db: pubmed
+            id: "tools.pmids"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-genes
+          description: "Search NCBI Gene database for gene records by symbol, name, or description"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "eutils.search-database"
+          with:
+            db: gene
+            term: "tools.query"
+            retmax: "tools.max_results"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-clinical-trials
+          description: "Search ClinicalTrials.gov for trials by condition, intervention, phase, or status"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "clinicaltrials.search-studies"
+          with:
+            query.cond: "tools.condition"
+            query.intr: "tools.intervention"
+            query.spons: "tools.sponsor"
+            filter.overallStatus: "tools.status"
+            filter.phase: "tools.phase"
+            pageSize: "tools.page_size"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-clinical-trial-details
+          description: "Retrieve complete protocol, eligibility, and results for a clinical trial by NCT ID"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "clinicaltrials.get-study"
+          with:
+            nctId: "tools.nct_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: search-ncbi-database
+          description: "Search any NCBI Entrez database (nuccore, protein, snp, taxonomy, sra, etc.)"
+          hints:
+            readOnly: true
+            idempotent: true
+          call: "eutils.search-database"
+          with:
+            db: "tools.database"
+            term: "tools.query"
+            retmax: "tools.max_results"
+          outputParameters:
+            - type: object
+              mapping: "$."

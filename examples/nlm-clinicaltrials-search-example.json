@@ -1,0 +1,57 @@
+{
+  "operationId": "searchStudies",
+  "request": {
+    "method": "GET",
+    "url": "https://clinicaltrials.gov/api/v2/studies",
+    "parameters": {
+      "query.cond": "Type 2 Diabetes",
+      "query.intr": "metformin",
+      "filter.overallStatus": "RECRUITING",
+      "pageSize": 5,
+      "format": "json"
+    }
+  },
+  "response": {
+    "status": 200,
+    "contentType": "application/json",
+    "body": {
+      "studies": [
+        {
+          "protocolSection": {
+            "identificationModule": {
+              "nctId": "NCT05812963",
+              "briefTitle": "Metformin vs Lifestyle Modification in Early Type 2 Diabetes",
+              "officialTitle": "A Randomized Controlled Trial Comparing Metformin and Intensive Lifestyle Modification in Patients With Early Type 2 Diabetes"
+            },
+            "statusModule": {
+              "overallStatus": "RECRUITING",
+              "startDateStruct": {"date": "2024-03-01"}
+            },
+            "sponsorCollaboratorsModule": {
+              "leadSponsor": {
+                "name": "University of California, San Francisco",
+                "class": "OTHER"
+              }
+            },
+            "conditionsModule": {
+              "conditions": ["Type 2 Diabetes Mellitus"],
+              "keywords": ["diabetes", "metformin", "lifestyle intervention"]
+            },
+            "designModule": {
+              "studyType": "INTERVENTIONAL",
+              "phases": ["PHASE3"]
+            },
+            "eligibilityModule": {
+              "sex": "ALL",
+              "minimumAge": "18 Years",
+              "maximumAge": "70 Years",
+              "healthyVolunteers": "No"
+            }
+          }
+        }
+      ],
+      "nextPageToken": "Abc123xyz",
+      "totalCount": 847
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "ncbi": "https://www.ncbi.nlm.nih.gov/ontology/",
+    "nlm": "https://www.nlm.nih.gov/ontology/",
+    "bioschemas": "https://bioschemas.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "fhir": "http://hl7.org/fhir/",
+    "mesh": "https://id.nlm.nih.gov/mesh/",
+
+    "ScholarlyArticle": "ScholarlyArticle",
+    "MedicalStudy": "MedicalStudy",
+    "MedicalTrial": "MedicalTrial",
+    "GovernmentOrganization": "GovernmentOrganization",
+
+    "pmid": {
+      "@id": "ncbi:pmid",
+      "@type": "@id"
+    },
+    "nctId": {
+      "@id": "nlm:nctId",
+      "@type": "@id"
+    },
+    "title": {
+      "@id": "schema:name"
+    },
+    "abstract": {
+      "@id": "schema:abstract"
+    },
+    "authors": {
+      "@id": "schema:author"
+    },
+    "journal": {
+      "@id": "schema:isPartOf"
+    },
+    "publicationDate": {
+      "@id": "schema:datePublished",
+      "@type": "schema:Date"
+    },
+    "doi": {
+      "@id": "schema:sameAs"
+    },
+    "meshTerms": {
+      "@id": "schema:keywords"
+    },
+    "conditions": {
+      "@id": "schema:healthCondition"
+    },
+    "interventions": {
+      "@id": "schema:drug"
+    },
+    "studyType": {
+      "@id": "schema:studyDesign"
+    },
+    "phases": {
+      "@id": "schema:status"
+    },
+    "leadSponsor": {
+      "@id": "schema:sponsor"
+    },
+    "eligibilityCriteria": {
+      "@id": "schema:eligibilityRequirement"
+    },
+    "enrollmentCount": {
+      "@id": "schema:numberOfPatients"
+    },
+    "taxId": {
+      "@id": "ncbi:taxonomyId"
+    },
+    "geneId": {
+      "@id": "ncbi:geneId",
+      "@type": "@id"
+    },
+    "symbol": {
+      "@id": "bioschemas:symbol"
+    }
+  }
+}

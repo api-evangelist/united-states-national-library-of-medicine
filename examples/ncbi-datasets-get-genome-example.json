@@ -1,0 +1,45 @@
+{
+  "operationId": "getGenomeDatasetReport",
+  "request": {
+    "method": "GET",
+    "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/genome/taxon/human/dataset_report",
+    "parameters": {
+      "filters.assembly_level": "chromosome",
+      "filters.assembly_source": "refseq",
+      "page_size": 5
+    }
+  },
+  "response": {
+    "status": 200,
+    "contentType": "application/json",
+    "body": {
+      "reports": [
+        {
+          "accession": "GCF_000001405.40",
+          "currentAccession": "GCF_000001405.40",
+          "organism": {
+            "taxId": 9606,
+            "sciName": "Homo sapiens",
+            "commonName": "human"
+          },
+          "assemblyInfo": {
+            "assemblyLevel": "Chromosome",
+            "assemblyStatus": "current",
+            "assemblyName": "GRCh38.p14",
+            "submissionDate": "2013-12-17",
+            "releaseDate": "2022-02-03"
+          },
+          "assemblyStats": {
+            "totalLength": 3099706404,
+            "numberOfChromosomes": 24,
+            "contigN50": 57879411,
+            "scaffoldN50": 67794873,
+            "gcPercent": 40.9
+          }
+        }
+      ],
+      "totalCount": 1,
+      "nextPageToken": null
+    }
+  }
+}

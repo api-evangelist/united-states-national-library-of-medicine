@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/main/json-schema/ncbi-pubmed-article-schema.json",
+  "title": "NCBI PubMed Article",
+  "description": "Schema for a PubMed biomedical literature article record from NCBI E-Utilities",
+  "type": "object",
+  "properties": {
+    "pmid": {
+      "type": "string",
+      "description": "PubMed unique identifier"
+    },
+    "title": {
+      "type": "string",
+      "description": "Article title"
+    },
+    "abstract": {
+      "type": "string",
+      "description": "Article abstract text"
+    },
+    "authors": {
+      "type": "array",
+      "description": "List of article authors",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lastName": {"type": "string"},
+          "firstName": {"type": "string"},
+          "initials": {"type": "string"},
+          "affiliation": {"type": "string"}
+        }
+      }
+    },
+    "journal": {
+      "type": "object",
+      "description": "Journal publication information",
+      "properties": {
+        "name": {"type": "string"},
+        "isoAbbreviation": {"type": "string"},
+        "issn": {"type": "string"},
+        "volume": {"type": "string"},
+        "issue": {"type": "string"},
+        "pages": {"type": "string"}
+      }
+    },
+    "publicationDate": {
+      "type": "object",
+      "description": "Publication date information",
+      "properties": {
+        "year": {"type": "integer"},
+        "month": {"type": "integer"},
+        "day": {"type": "integer"}
+      }
+    },
+    "doi": {
+      "type": "string",
+      "description": "Digital Object Identifier"
+    },
+    "pmcId": {
+      "type": "string",
+      "description": "PubMed Central ID (if available as full-text)"
+    },
+    "meshTerms": {
+      "type": "array",
+      "description": "Medical Subject Headings assigned to the article",
+      "items": {
+        "type": "object",
+        "properties": {
+          "descriptorName": {"type": "string"},
+          "major": {"type": "boolean"}
+        }
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "description": "Author-supplied keywords",
+      "items": {"type": "string"}
+    },
+    "publicationTypes": {
+      "type": "array",
+      "description": "Publication type designations (e.g. Journal Article, Review, Clinical Trial)",
+      "items": {"type": "string"}
+    },
+    "citationCount": {
+      "type": "integer",
+      "description": "Number of times the article has been cited in PMC"
+    }
+  },
+  "required": ["pmid", "title"]
+}

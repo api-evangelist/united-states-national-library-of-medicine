@@ -1,0 +1,18 @@
+{
+  "name": "NCBI PubMed Article",
+  "description": "Data structure for a PubMed biomedical literature article record",
+  "fields": [
+    {"name": "pmid", "type": "string", "description": "PubMed unique identifier", "required": true},
+    {"name": "title", "type": "string", "description": "Article title", "required": true},
+    {"name": "abstract", "type": "string", "description": "Article abstract text"},
+    {"name": "authors", "type": "array", "description": "Author list with names and affiliations"},
+    {"name": "journal", "type": "object", "description": "Journal name, volume, issue, pages"},
+    {"name": "publicationDate", "type": "object", "description": "Year, month, day of publication"},
+    {"name": "doi", "type": "string", "description": "Digital Object Identifier"},
+    {"name": "pmcId", "type": "string", "description": "PubMed Central identifier"},
+    {"name": "meshTerms", "type": "array", "description": "MeSH vocabulary terms"},
+    {"name": "keywords", "type": "array", "description": "Author-supplied keywords"},
+    {"name": "publicationTypes", "type": "array", "description": "Publication type designations"},
+    {"name": "citationCount", "type": "integer", "description": "Citation count in PMC"}
+  ]
+}

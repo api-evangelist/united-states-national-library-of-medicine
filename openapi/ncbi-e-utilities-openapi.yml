@@ -1,0 +1,488 @@
+openapi: 3.0.3
+info:
+  title: NCBI E-Utilities API
+  description: >-
+    The NCBI E-Utilities (Entrez Programming Utilities) are the public API
+    to the NCBI Entrez system providing access to all 41 Entrez databases
+    including PubMed (biomedical literature), PMC (full-text articles), Gene,
+    Nuccore (nucleotide sequences), Protein, SNP, and more. Supports search,
+    retrieval, linking, posting, and spelling operations. API keys from
+    https://www.ncbi.nlm.nih.gov/account/ increase the rate limit from 3 to
+    10 requests per second.
+  version: 1.0.0
+  contact:
+    name: NCBI
+    url: https://www.ncbi.nlm.nih.gov/home/develop/api/
+    email: info@ncbi.nlm.nih.gov
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+  - url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils
+    description: NCBI E-Utilities API
+tags:
+  - name: Search
+    description: Search Entrez databases
+  - name: Fetch
+    description: Retrieve records from Entrez databases
+  - name: Link
+    description: Find linked records across databases
+  - name: Info
+    description: Database information and statistics
+paths:
+  /esearch.fcgi:
+    get:
+      operationId: searchDatabase
+      summary: Search Entrez Database
+      description: >-
+        Search any Entrez database and retrieve document identifiers (UIDs)
+        matching a query. Supports full Entrez query syntax including Boolean
+        operators, field tags, and date ranges.
+      tags:
+        - Search
+      parameters:
+        - name: db
+          in: query
+          description: >-
+            Target Entrez database (e.g. pubmed, nuccore, protein, gene,
+            snp, mesh, pmc)
+          required: true
+          schema:
+            type: string
+          example: pubmed
+        - name: term
+          in: query
+          description: Entrez text query with optional field tags and Boolean operators
+          required: true
+          schema:
+            type: string
+          example: 'cancer[Title] AND 2023[PDAT]'
+        - name: api_key
+          in: query
+          description: NCBI API key for increased rate limits
+          required: false
+          schema:
+            type: string
+        - name: retmax
+          in: query
+          description: Maximum number of UIDs to return (default 20, max 10000)
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 10000
+        - name: retstart
+          in: query
+          description: Index of first UID in results (for pagination)
+          required: false
+          schema:
+            type: integer
+            default: 0
+        - name: retmode
+          in: query
+          description: Output format
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+        - name: sort
+          in: query
+          description: Sort order for results
+          required: false
+          schema:
+            type: string
+            enum:
+              - relevance
+              - pub+date
+              - Author
+              - JournalName
+        - name: datetype
+          in: query
+          description: Date type for date range filtering
+          required: false
+          schema:
+            type: string
+            enum:
+              - PDAT
+              - MDAT
+              - EDAT
+        - name: mindate
+          in: query
+          description: Minimum date for range filter (YYYY/MM/DD)
+          required: false
+          schema:
+            type: string
+          example: '2023/01/01'
+        - name: maxdate
+          in: query
+          description: Maximum date for range filter (YYYY/MM/DD)
+          required: false
+          schema:
+            type: string
+          example: '2023/12/31'
+        - name: usehistory
+          in: query
+          description: Store results on NCBI server (y/n)
+          required: false
+          schema:
+            type: string
+            enum:
+              - 'y'
+              - 'n'
+      responses:
+        '200':
+          description: Search results with UIDs and counts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESearchResult'
+
+  /efetch.fcgi:
+    get:
+      operationId: fetchRecords
+      summary: Fetch Records
+      description: >-
+        Retrieve full records from an Entrez database in various formats.
+        Commonly used to retrieve PubMed article abstracts, nucleotide sequences
+        in FASTA format, or gene records.
+      tags:
+        - Fetch
+      parameters:
+        - name: db
+          in: query
+          description: Target Entrez database
+          required: true
+          schema:
+            type: string
+          example: pubmed
+        - name: id
+          in: query
+          description: Comma-separated list of UIDs to retrieve
+          required: false
+          schema:
+            type: string
+          example: '33515491,33515492'
+        - name: api_key
+          in: query
+          description: NCBI API key
+          required: false
+          schema:
+            type: string
+        - name: rettype
+          in: query
+          description: Record type to return (e.g. abstract, medline, fasta, gb, docsum)
+          required: false
+          schema:
+            type: string
+          example: abstract
+        - name: retmode
+          in: query
+          description: Output format
+          required: false
+          schema:
+            type: string
+            enum:
+              - xml
+              - text
+              - json
+              - asn.1
+        - name: retmax
+          in: query
+          description: Maximum number of records to retrieve
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: retstart
+          in: query
+          description: Starting index in the UID list
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Requested records in the specified format
+          content:
+            text/xml:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+
+  /esummary.fcgi:
+    get:
+      operationId: getSummaries
+      summary: Get Document Summaries
+      description: >-
+        Retrieve document summaries (DocSums) for records from any Entrez database.
+        Returns a concise summary of record attributes including title, authors,
+        journal, and publication date for PubMed records.
+      tags:
+        - Fetch
+      parameters:
+        - name: db
+          in: query
+          description: Target Entrez database
+          required: true
+          schema:
+            type: string
+          example: pubmed
+        - name: id
+          in: query
+          description: Comma-separated list of UIDs
+          required: false
+          schema:
+            type: string
+          example: '33515491,33515492'
+        - name: api_key
+          in: query
+          description: NCBI API key
+          required: false
+          schema:
+            type: string
+        - name: retmode
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+      responses:
+        '200':
+          description: Document summaries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESummaryResult'
+
+  /elink.fcgi:
+    get:
+      operationId: getLinkages
+      summary: Get Linked Records
+      description: >-
+        Find records related to a set of input UIDs in any Entrez database.
+        Supports finding related articles, linked sequences, gene-to-protein
+        links, and other cross-database connections.
+      tags:
+        - Link
+      parameters:
+        - name: dbfrom
+          in: query
+          description: Source database
+          required: true
+          schema:
+            type: string
+          example: pubmed
+        - name: db
+          in: query
+          description: Target database (leave empty for related records in same db)
+          required: false
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: Comma-separated source UIDs
+          required: true
+          schema:
+            type: string
+          example: '33515491'
+        - name: api_key
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: cmd
+          in: query
+          description: Link command (neighbor, prlinks, llinks, acheck, ncheck, lcheck)
+          required: false
+          schema:
+            type: string
+            default: neighbor
+        - name: linkname
+          in: query
+          description: Named link to follow (e.g. pubmed_pubmed_citedin)
+          required: false
+          schema:
+            type: string
+        - name: retmode
+          in: query
+          required: false
+          schema:
+            type: string
+            default: json
+      responses:
+        '200':
+          description: Linked record UIDs and link names
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /einfo.fcgi:
+    get:
+      operationId: getDatabaseInfo
+      summary: Get Database Information
+      description: >-
+        Retrieve information about Entrez databases including list of all
+        databases, or details about a specific database including field names,
+        links, and statistics.
+      tags:
+        - Info
+      parameters:
+        - name: db
+          in: query
+          description: Database name (omit to list all databases)
+          required: false
+          schema:
+            type: string
+          example: pubmed
+        - name: api_key
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: retmode
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+              - xml
+            default: json
+      responses:
+        '200':
+          description: Database information or list of databases
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /espell.fcgi:
+    get:
+      operationId: checkSpelling
+      summary: Check Query Spelling
+      description: >-
+        Retrieve spelling suggestions for a search term in a given Entrez database.
+        Helpful for correcting misspelled gene names, species names, or medical terms.
+      tags:
+        - Search
+      parameters:
+        - name: db
+          in: query
+          description: Target Entrez database
+          required: true
+          schema:
+            type: string
+          example: pubmed
+        - name: term
+          in: query
+          description: Query term to check spelling for
+          required: true
+          schema:
+            type: string
+          example: asthmaa
+        - name: api_key
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Spelling suggestions
+          content:
+            text/xml:
+              schema:
+                type: string
+
+components:
+  schemas:
+    ESearchResult:
+      type: object
+      description: Results from an Entrez search query
+      properties:
+        esearchresult:
+          type: object
+          properties:
+            count:
+              type: string
+              description: Total number of matching records
+            retmax:
+              type: string
+              description: Number of UIDs returned
+            retstart:
+              type: string
+              description: Index of first UID returned
+            querykey:
+              type: string
+              description: Server-side query key (if usehistory=y)
+            webenv:
+              type: string
+              description: Web environment token (if usehistory=y)
+            idlist:
+              type: array
+              description: List of returned UIDs
+              items:
+                type: string
+            translationset:
+              type: array
+              description: Query translations applied
+              items:
+                type: object
+            querytranslation:
+              type: string
+              description: Translated query as used by Entrez
+
+    ESummaryResult:
+      type: object
+      description: Document summaries from Entrez
+      properties:
+        result:
+          type: object
+          description: Map of UID to document summary
+          additionalProperties:
+            type: object
+            properties:
+              uid:
+                type: string
+              pubdate:
+                type: string
+              epubdate:
+                type: string
+              source:
+                type: string
+              authors:
+                type: array
+                items:
+                  type: object
+              title:
+                type: string
+              volume:
+                type: string
+              issue:
+                type: string
+              pages:
+                type: string
+              fulljournalname:
+                type: string
+              doi:
+                type: string
+              pmcrefcount:
+                type: integer
+              pubtype:
+                type: array
+                items:
+                  type: string
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: NCBI API key from https://www.ncbi.nlm.nih.gov/account/

@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/main/json-schema/nlm-clinical-trial-schema.json",
+  "title": "ClinicalTrials.gov Study",
+  "description": "Schema for a clinical trial study record from the ClinicalTrials.gov API",
+  "type": "object",
+  "properties": {
+    "nctId": {
+      "type": "string",
+      "description": "ClinicalTrials.gov NCT identifier",
+      "pattern": "^NCT[0-9]{8}$"
+    },
+    "briefTitle": {
+      "type": "string",
+      "description": "Brief title of the clinical trial"
+    },
+    "officialTitle": {
+      "type": "string",
+      "description": "Full official title of the study"
+    },
+    "overallStatus": {
+      "type": "string",
+      "description": "Current overall recruitment status",
+      "enum": [
+        "RECRUITING",
+        "ACTIVE_NOT_RECRUITING",
+        "COMPLETED",
+        "NOT_YET_RECRUITING",
+        "SUSPENDED",
+        "TERMINATED",
+        "WITHDRAWN",
+        "ENROLLING_BY_INVITATION",
+        "AVAILABLE",
+        "UNKNOWN"
+      ]
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Conditions or diseases being studied",
+      "items": {"type": "string"}
+    },
+    "interventions": {
+      "type": "array",
+      "description": "Interventions or treatments being investigated",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {"type": "string"},
+          "name": {"type": "string"},
+          "description": {"type": "string"}
+        }
+      }
+    },
+    "studyType": {
+      "type": "string",
+      "description": "Type of study",
+      "enum": ["INTERVENTIONAL", "OBSERVATIONAL", "EXPANDED_ACCESS"]
+    },
+    "phases": {
+      "type": "array",
+      "description": "Clinical trial phases",
+      "items": {
+        "type": "string",
+        "enum": ["EARLY_PHASE1", "PHASE1", "PHASE2", "PHASE3", "PHASE4", "NA"]
+      }
+    },
+    "leadSponsor": {
+      "type": "object",
+      "description": "Primary sponsor of the trial",
+      "properties": {
+        "name": {"type": "string"},
+        "class": {"type": "string"}
+      }
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Actual or anticipated start date"
+    },
+    "completionDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Actual or anticipated completion date"
+    },
+    "eligibilityCriteria": {
+      "type": "string",
+      "description": "Inclusion and exclusion criteria text"
+    },
+    "minimumAge": {
+      "type": "string",
+      "description": "Minimum age for eligibility"
+    },
+    "maximumAge": {
+      "type": "string",
+      "description": "Maximum age for eligibility"
+    },
+    "sex": {
+      "type": "string",
+      "description": "Eligible biological sex (ALL, FEMALE, MALE)",
+      "enum": ["ALL", "FEMALE", "MALE"]
+    },
+    "enrollmentCount": {
+      "type": "integer",
+      "description": "Target enrollment count"
+    },
+    "locations": {
+      "type": "array",
+      "description": "Trial locations",
+      "items": {
+        "type": "object",
+        "properties": {
+          "facility": {"type": "string"},
+          "city": {"type": "string"},
+          "state": {"type": "string"},
+          "country": {"type": "string"},
+          "status": {"type": "string"}
+        }
+      }
+    }
+  },
+  "required": ["nctId", "briefTitle", "overallStatus"]
+}

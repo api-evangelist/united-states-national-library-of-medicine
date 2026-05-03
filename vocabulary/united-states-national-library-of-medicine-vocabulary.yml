@@ -1,0 +1,126 @@
+vocabulary:
+  name: United States National Library of Medicine Vocabulary
+  description: >-
+    Domain vocabulary for NLM biomedical information services including
+    PubMed, NCBI Entrez databases, BLAST, genomics, clinical trials, and
+    controlled biomedical terminology.
+  version: 1.0.0
+  created: '2026-05-03'
+  modified: '2026-05-03'
+
+terms:
+  - term: BLAST
+    label: Basic Local Alignment Search Tool
+    definition: >-
+      A sequence alignment algorithm and tool that finds regions of local
+      similarity between biological sequences (nucleotide or protein). BLAST
+      compares a query sequence against a database of sequences to find matches.
+    domain: Bioinformatics
+
+  - term: Entrez
+    label: Entrez Integrated Retrieval System
+    definition: >-
+      NCBI's search and retrieval system providing access to 41+ databases
+      covering biomedical literature (PubMed), nucleotide sequences, proteins,
+      genomes, taxonomy, genes, and more. Accessible via E-Utilities API.
+    domain: Data Systems
+
+  - term: E-Utilities
+    label: Entrez Programming Utilities (E-Utilities)
+    definition: >-
+      A set of eight server-side programs providing public access to the NCBI
+      Entrez system. E-utilities accept a URL-based syntax and return data in
+      XML, JSON, or text format for programmatic integration.
+    domain: Data Systems
+
+  - term: FDR
+    label: False Discovery Rate
+    definition: >-
+      A statistical method for controlling the expected proportion of incorrectly
+      rejected null hypotheses when conducting multiple hypothesis tests in
+      genomic and bioinformatics analyses.
+    domain: Biostatistics
+
+  - term: Gene ID
+    label: NCBI Gene Identifier
+    definition: >-
+      A stable numeric identifier assigned to a gene by NCBI, providing a
+      consistent reference point across publications, databases, and research tools.
+    domain: Genomics
+
+  - term: MeSH
+    label: Medical Subject Headings
+    definition: >-
+      NLM's controlled vocabulary thesaurus used for indexing articles in PubMed
+      and other NLM databases. MeSH terms provide a consistent way to retrieve
+      information that may use different terminology.
+    domain: Terminology
+
+  - term: NCT ID
+    label: ClinicalTrials.gov Identifier
+    definition: >-
+      A unique identification number assigned to each clinical study registered
+      at ClinicalTrials.gov. The identifier format is NCT followed by eight digits
+      (e.g., NCT04000009).
+    domain: Clinical Trials
+
+  - term: NCBI
+    label: National Center for Biotechnology Information
+    definition: >-
+      A division of the NLM providing access to biomedical and genomic information
+      through databases including GenBank, PubMed, Gene, and Protein, and tools
+      such as BLAST.
+    domain: Agency
+
+  - term: NLM
+    label: National Library of Medicine
+    definition: >-
+      The world's largest biomedical library, part of the National Institutes of
+      Health (NIH). NLM builds and maintains databases including PubMed, MedlinePlus,
+      ClinicalTrials.gov, and manages the NCBI.
+    domain: Agency
+
+  - term: PMID
+    label: PubMed Identifier
+    definition: >-
+      A unique numerical identifier assigned to each article indexed in PubMed.
+      Used to reliably reference and retrieve specific articles via E-Utilities.
+    domain: Literature
+
+  - term: PMC
+    label: PubMed Central
+    definition: >-
+      A free digital archive of biomedical and life sciences journal literature
+      maintained by NLM, containing millions of full-text articles accessible
+      via API or download.
+    domain: Literature
+
+  - term: PubMed
+    label: PubMed
+    definition: >-
+      A free search engine providing access to the MEDLINE database of biomedical
+      literature citations and abstracts, including life sciences and biomedical
+      topics, maintained by NLM/NCBI. Contains over 36 million citations.
+    domain: Literature
+
+  - term: RID
+    label: BLAST Request ID
+    definition: >-
+      A unique identifier assigned to a BLAST sequence search submission. Used to
+      poll for search status and retrieve results after processing is complete.
+    domain: Bioinformatics
+
+  - term: Taxonomy ID
+    label: NCBI Taxonomy ID (TaxID)
+    definition: >-
+      A unique numerical identifier assigned to each organism in the NCBI
+      Taxonomy database. Human (Homo sapiens) has TaxID 9606.
+    domain: Taxonomy
+
+  - term: UIDs
+    label: Unique Identifiers (UIDs)
+    definition: >-
+      Database-specific integer identifiers used by NCBI Entrez to uniquely
+      identify records. PMIDs for PubMed, Gene IDs for the Gene database,
+      GI numbers for nucleotide sequences, etc.
+    domain: Data Systems

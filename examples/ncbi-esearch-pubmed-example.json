@@ -1,0 +1,43 @@
+{
+  "operationId": "searchDatabase",
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+    "parameters": {
+      "db": "pubmed",
+      "term": "cancer immunotherapy[Title] AND 2024[PDAT]",
+      "retmax": 10,
+      "retmode": "json",
+      "sort": "pub+date"
+    }
+  },
+  "response": {
+    "status": 200,
+    "contentType": "application/json",
+    "body": {
+      "header": {
+        "type": "esearch",
+        "version": "0.3"
+      },
+      "esearchresult": {
+        "count": "4821",
+        "retmax": "10",
+        "retstart": "0",
+        "idlist": [
+          "38941234",
+          "38939012",
+          "38937845",
+          "38936201",
+          "38934789",
+          "38933456",
+          "38931234",
+          "38929876",
+          "38928543",
+          "38926789"
+        ],
+        "translationset": [],
+        "querytranslation": "\"cancer immunotherapy\"[Title] AND 2024[Publication Date]"
+      }
+    }
+  }
+}
