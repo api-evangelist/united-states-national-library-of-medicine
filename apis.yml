@@ -125,7 +125,7 @@ tags:
   - Healthcare
   - Genomics
   - Literature
-type: Contract
+kind: contract
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 common:
   - url: https://www.ncbi.nlm.nih.gov/home/develop/api/
