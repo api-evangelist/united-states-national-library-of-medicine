@@ -1,0 +1,131 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NCBI BLAST URL API — BLAST
+  description: 'NCBI BLAST URL API — BLAST. 2 operations. Lead operation: Submit BLAST Search. Self-contained Naftiko capability
+    covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - BLAST
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ncbi-blast-blast
+    baseUri: https://blast.ncbi.nlm.nih.gov/blast
+    description: NCBI BLAST URL API — BLAST business capability. Self-contained, no shared references.
+    resources:
+    - name: Blast.cgi
+      path: /Blast.cgi
+      operations:
+      - name: submitblastsearch
+        method: PUT
+        description: Submit BLAST Search
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: getblastresults
+        method: GET
+        description: Get BLAST Results or Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: CMD
+          in: query
+          type: string
+          description: Command type (Get to check status/retrieve results)
+          required: true
+        - name: RID
+          in: query
+          type: string
+          description: Request ID from submission response
+          required: true
+        - name: FORMAT_TYPE
+          in: query
+          type: string
+          description: Output format for results
+        - name: HITLIST_SIZE
+          in: query
+          type: integer
+          description: Number of hits to retrieve in results
+  exposes:
+  - type: rest
+    namespace: ncbi-blast-blast-rest
+    port: 8080
+    description: REST adapter for NCBI BLAST URL API — BLAST. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/blast-cgi
+      name: blast-cgi
+      description: REST surface for Blast.cgi.
+      operations:
+      - method: PUT
+        name: submitblastsearch
+        description: Submit BLAST Search
+        call: ncbi-blast-blast.submitblastsearch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getblastresults
+        description: Get BLAST Results or Status
+        call: ncbi-blast-blast.getblastresults
+        with:
+          CMD: rest.CMD
+          RID: rest.RID
+          FORMAT_TYPE: rest.FORMAT_TYPE
+          HITLIST_SIZE: rest.HITLIST_SIZE
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ncbi-blast-blast-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NCBI BLAST URL API — BLAST. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: submit-blast-search
+      description: Submit BLAST Search
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ncbi-blast-blast.submitblastsearch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-blast-results-status
+      description: Get BLAST Results or Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-blast-blast.getblastresults
+      with:
+        CMD: tools.CMD
+        RID: tools.RID
+        FORMAT_TYPE: tools.FORMAT_TYPE
+        HITLIST_SIZE: tools.HITLIST_SIZE
+      outputParameters:
+      - type: object
+        mapping: $.

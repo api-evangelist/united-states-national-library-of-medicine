@@ -1,0 +1,91 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NCBI E-Utilities API — Info
+  description: 'NCBI E-Utilities API — Info. 1 operations. Lead operation: Get Database Information. Self-contained Naftiko
+    capability covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Info
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ncbi-e-utilities-info
+    baseUri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils
+    description: NCBI E-Utilities API — Info business capability. Self-contained, no shared references.
+    resources:
+    - name: einfo.fcgi
+      path: /einfo.fcgi
+      operations:
+      - name: getdatabaseinfo
+        method: GET
+        description: Get Database Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: db
+          in: query
+          type: string
+          description: Database name (omit to list all databases)
+        - name: api_key
+          in: query
+          type: string
+        - name: retmode
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: ncbi-e-utilities-info-rest
+    port: 8080
+    description: REST adapter for NCBI E-Utilities API — Info. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/einfo-fcgi
+      name: einfo-fcgi
+      description: REST surface for einfo.fcgi.
+      operations:
+      - method: GET
+        name: getdatabaseinfo
+        description: Get Database Information
+        call: ncbi-e-utilities-info.getdatabaseinfo
+        with:
+          db: rest.db
+          api_key: rest.api_key
+          retmode: rest.retmode
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ncbi-e-utilities-info-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NCBI E-Utilities API — Info. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-database-information
+      description: Get Database Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-e-utilities-info.getdatabaseinfo
+      with:
+        db: tools.db
+        api_key: tools.api_key
+        retmode: tools.retmode
+      outputParameters:
+      - type: object
+        mapping: $.

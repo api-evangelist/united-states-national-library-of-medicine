@@ -1,0 +1,112 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ClinicalTrials.gov API — Metadata
+  description: 'ClinicalTrials.gov API — Metadata. 2 operations. Lead operation: Get Dataset Size. Self-contained Naftiko
+    capability covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Metadata
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nlm-clinicaltrials-metadata
+    baseUri: https://clinicaltrials.gov/api/v2
+    description: ClinicalTrials.gov API — Metadata business capability. Self-contained, no shared references.
+    resources:
+    - name: stats-size
+      path: /stats/size
+      operations:
+      - name: getdatasetsize
+        method: GET
+        description: Get Dataset Size
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query.cond
+          in: query
+          type: string
+        - name: filter.overallStatus
+          in: query
+          type: string
+    - name: studies-metadata
+      path: /studies/metadata
+      operations:
+      - name: getstudyfieldsmetadata
+        method: GET
+        description: Get Study Fields Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: nlm-clinicaltrials-metadata-rest
+    port: 8080
+    description: REST adapter for ClinicalTrials.gov API — Metadata. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/stats/size
+      name: stats-size
+      description: REST surface for stats-size.
+      operations:
+      - method: GET
+        name: getdatasetsize
+        description: Get Dataset Size
+        call: nlm-clinicaltrials-metadata.getdatasetsize
+        with:
+          query.cond: rest.query.cond
+          filter.overallStatus: rest.filter.overallStatus
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/studies/metadata
+      name: studies-metadata
+      description: REST surface for studies-metadata.
+      operations:
+      - method: GET
+        name: getstudyfieldsmetadata
+        description: Get Study Fields Metadata
+        call: nlm-clinicaltrials-metadata.getstudyfieldsmetadata
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nlm-clinicaltrials-metadata-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ClinicalTrials.gov API — Metadata. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-dataset-size
+      description: Get Dataset Size
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nlm-clinicaltrials-metadata.getdatasetsize
+      with:
+        query.cond: tools.query.cond
+        filter.overallStatus: tools.filter.overallStatus
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-study-fields-metadata
+      description: Get Study Fields Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nlm-clinicaltrials-metadata.getstudyfieldsmetadata
+      outputParameters:
+      - type: object
+        mapping: $.

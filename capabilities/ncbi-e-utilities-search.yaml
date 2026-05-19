@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NCBI E-Utilities API — Search
+  description: 'NCBI E-Utilities API — Search. 2 operations. Lead operation: Search Entrez Database. Self-contained Naftiko
+    capability covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Search
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ncbi-e-utilities-search
+    baseUri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils
+    description: NCBI E-Utilities API — Search business capability. Self-contained, no shared references.
+    resources:
+    - name: esearch.fcgi
+      path: /esearch.fcgi
+      operations:
+      - name: searchdatabase
+        method: GET
+        description: Search Entrez Database
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: db
+          in: query
+          type: string
+          description: Target Entrez database (e.g. pubmed, nuccore, protein, gene, snp, mesh, pmc)
+          required: true
+        - name: term
+          in: query
+          type: string
+          description: Entrez text query with optional field tags and Boolean operators
+          required: true
+        - name: api_key
+          in: query
+          type: string
+          description: NCBI API key for increased rate limits
+        - name: retmax
+          in: query
+          type: integer
+          description: Maximum number of UIDs to return (default 20, max 10000)
+        - name: retstart
+          in: query
+          type: integer
+          description: Index of first UID in results (for pagination)
+        - name: retmode
+          in: query
+          type: string
+          description: Output format
+        - name: sort
+          in: query
+          type: string
+          description: Sort order for results
+        - name: datetype
+          in: query
+          type: string
+          description: Date type for date range filtering
+        - name: mindate
+          in: query
+          type: string
+          description: Minimum date for range filter (YYYY/MM/DD)
+        - name: maxdate
+          in: query
+          type: string
+          description: Maximum date for range filter (YYYY/MM/DD)
+        - name: usehistory
+          in: query
+          type: string
+          description: Store results on NCBI server (y/n)
+    - name: espell.fcgi
+      path: /espell.fcgi
+      operations:
+      - name: checkspelling
+        method: GET
+        description: Check Query Spelling
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: db
+          in: query
+          type: string
+          description: Target Entrez database
+          required: true
+        - name: term
+          in: query
+          type: string
+          description: Query term to check spelling for
+          required: true
+        - name: api_key
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: ncbi-e-utilities-search-rest
+    port: 8080
+    description: REST adapter for NCBI E-Utilities API — Search. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/esearch-fcgi
+      name: esearch-fcgi
+      description: REST surface for esearch.fcgi.
+      operations:
+      - method: GET
+        name: searchdatabase
+        description: Search Entrez Database
+        call: ncbi-e-utilities-search.searchdatabase
+        with:
+          db: rest.db
+          term: rest.term
+          api_key: rest.api_key
+          retmax: rest.retmax
+          retstart: rest.retstart
+          retmode: rest.retmode
+          sort: rest.sort
+          datetype: rest.datetype
+          mindate: rest.mindate
+          maxdate: rest.maxdate
+          usehistory: rest.usehistory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/espell-fcgi
+      name: espell-fcgi
+      description: REST surface for espell.fcgi.
+      operations:
+      - method: GET
+        name: checkspelling
+        description: Check Query Spelling
+        call: ncbi-e-utilities-search.checkspelling
+        with:
+          db: rest.db
+          term: rest.term
+          api_key: rest.api_key
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ncbi-e-utilities-search-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NCBI E-Utilities API — Search. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: search-entrez-database
+      description: Search Entrez Database
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-e-utilities-search.searchdatabase
+      with:
+        db: tools.db
+        term: tools.term
+        api_key: tools.api_key
+        retmax: tools.retmax
+        retstart: tools.retstart
+        retmode: tools.retmode
+        sort: tools.sort
+        datetype: tools.datetype
+        mindate: tools.mindate
+        maxdate: tools.maxdate
+        usehistory: tools.usehistory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-query-spelling
+      description: Check Query Spelling
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-e-utilities-search.checkspelling
+      with:
+        db: tools.db
+        term: tools.term
+        api_key: tools.api_key
+      outputParameters:
+      - type: object
+        mapping: $.

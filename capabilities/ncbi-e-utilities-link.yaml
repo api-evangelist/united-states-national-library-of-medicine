@@ -1,0 +1,117 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NCBI E-Utilities API — Link
+  description: 'NCBI E-Utilities API — Link. 1 operations. Lead operation: Get Linked Records. Self-contained Naftiko capability
+    covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Link
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ncbi-e-utilities-link
+    baseUri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils
+    description: NCBI E-Utilities API — Link business capability. Self-contained, no shared references.
+    resources:
+    - name: elink.fcgi
+      path: /elink.fcgi
+      operations:
+      - name: getlinkages
+        method: GET
+        description: Get Linked Records
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dbfrom
+          in: query
+          type: string
+          description: Source database
+          required: true
+        - name: db
+          in: query
+          type: string
+          description: Target database (leave empty for related records in same db)
+        - name: id
+          in: query
+          type: string
+          description: Comma-separated source UIDs
+          required: true
+        - name: api_key
+          in: query
+          type: string
+        - name: cmd
+          in: query
+          type: string
+          description: Link command (neighbor, prlinks, llinks, acheck, ncheck, lcheck)
+        - name: linkname
+          in: query
+          type: string
+          description: Named link to follow (e.g. pubmed_pubmed_citedin)
+        - name: retmode
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: ncbi-e-utilities-link-rest
+    port: 8080
+    description: REST adapter for NCBI E-Utilities API — Link. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/elink-fcgi
+      name: elink-fcgi
+      description: REST surface for elink.fcgi.
+      operations:
+      - method: GET
+        name: getlinkages
+        description: Get Linked Records
+        call: ncbi-e-utilities-link.getlinkages
+        with:
+          dbfrom: rest.dbfrom
+          db: rest.db
+          id: rest.id
+          api_key: rest.api_key
+          cmd: rest.cmd
+          linkname: rest.linkname
+          retmode: rest.retmode
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ncbi-e-utilities-link-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NCBI E-Utilities API — Link. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-linked-records
+      description: Get Linked Records
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-e-utilities-link.getlinkages
+      with:
+        dbfrom: tools.dbfrom
+        db: tools.db
+        id: tools.id
+        api_key: tools.api_key
+        cmd: tools.cmd
+        linkname: tools.linkname
+        retmode: tools.retmode
+      outputParameters:
+      - type: object
+        mapping: $.

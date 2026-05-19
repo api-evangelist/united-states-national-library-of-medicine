@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NCBI Datasets REST API — Taxonomy
+  description: 'NCBI Datasets REST API — Taxonomy. 1 operations. Lead operation: Get Taxonomy Information. Self-contained
+    Naftiko capability covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Taxonomy
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ncbi-datasets-taxonomy
+    baseUri: https://api.ncbi.nlm.nih.gov/datasets/v2
+    description: NCBI Datasets REST API — Taxonomy business capability. Self-contained, no shared references.
+    resources:
+    - name: taxonomy-taxon-taxons
+      path: /taxonomy/taxon/{taxons}
+      operations:
+      - name: gettaxonomy
+        method: GET
+        description: Get Taxonomy Information
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: taxons
+          in: path
+          type: string
+          description: Comma-separated taxon names or taxonomy IDs
+          required: true
+        - name: api_key
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: ncbi-datasets-taxonomy-rest
+    port: 8080
+    description: REST adapter for NCBI Datasets REST API — Taxonomy. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/taxonomy/taxon/{taxons}
+      name: taxonomy-taxon-taxons
+      description: REST surface for taxonomy-taxon-taxons.
+      operations:
+      - method: GET
+        name: gettaxonomy
+        description: Get Taxonomy Information
+        call: ncbi-datasets-taxonomy.gettaxonomy
+        with:
+          taxons: rest.taxons
+          api_key: rest.api_key
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ncbi-datasets-taxonomy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NCBI Datasets REST API — Taxonomy. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-taxonomy-information
+      description: Get Taxonomy Information
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-datasets-taxonomy.gettaxonomy
+      with:
+        taxons: tools.taxons
+        api_key: tools.api_key
+      outputParameters:
+      - type: object
+        mapping: $.

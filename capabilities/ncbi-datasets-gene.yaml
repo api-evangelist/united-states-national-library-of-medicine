@@ -1,0 +1,146 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NCBI Datasets REST API — Gene
+  description: 'NCBI Datasets REST API — Gene. 2 operations. Lead operation: Get Gene Records By IDs. Self-contained Naftiko
+    capability covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Gene
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ncbi-datasets-gene
+    baseUri: https://api.ncbi.nlm.nih.gov/datasets/v2
+    description: NCBI Datasets REST API — Gene business capability. Self-contained, no shared references.
+    resources:
+    - name: gene-id-gene_ids
+      path: /gene/id/{gene_ids}
+      operations:
+      - name: getgenebyids
+        method: GET
+        description: Get Gene Records By IDs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: gene_ids
+          in: path
+          type: string
+          description: Comma-separated NCBI gene IDs
+          required: true
+        - name: api_key
+          in: query
+          type: string
+        - name: page_size
+          in: query
+          type: integer
+    - name: gene-symbol-symbols-taxon-taxon
+      path: /gene/symbol/{symbols}/taxon/{taxon}
+      operations:
+      - name: getgenebysymbol
+        method: GET
+        description: Get Gene by Symbol and Taxon
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: symbols
+          in: path
+          type: string
+          description: Gene symbol(s) (e.g. BRCA1, TP53)
+          required: true
+        - name: taxon
+          in: path
+          type: string
+          description: Organism name or NCBI taxonomy ID
+          required: true
+        - name: api_key
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: ncbi-datasets-gene-rest
+    port: 8080
+    description: REST adapter for NCBI Datasets REST API — Gene. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/gene/id/{gene-ids}
+      name: gene-id-gene-ids
+      description: REST surface for gene-id-gene_ids.
+      operations:
+      - method: GET
+        name: getgenebyids
+        description: Get Gene Records By IDs
+        call: ncbi-datasets-gene.getgenebyids
+        with:
+          gene_ids: rest.gene_ids
+          api_key: rest.api_key
+          page_size: rest.page_size
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/gene/symbol/{symbols}/taxon/{taxon}
+      name: gene-symbol-symbols-taxon-taxon
+      description: REST surface for gene-symbol-symbols-taxon-taxon.
+      operations:
+      - method: GET
+        name: getgenebysymbol
+        description: Get Gene by Symbol and Taxon
+        call: ncbi-datasets-gene.getgenebysymbol
+        with:
+          symbols: rest.symbols
+          taxon: rest.taxon
+          api_key: rest.api_key
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ncbi-datasets-gene-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NCBI Datasets REST API — Gene. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-gene-records-ids
+      description: Get Gene Records By IDs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-datasets-gene.getgenebyids
+      with:
+        gene_ids: tools.gene_ids
+        api_key: tools.api_key
+        page_size: tools.page_size
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-gene-symbol-and-taxon
+      description: Get Gene by Symbol and Taxon
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-datasets-gene.getgenebysymbol
+      with:
+        symbols: tools.symbols
+        taxon: tools.taxon
+        api_key: tools.api_key
+      outputParameters:
+      - type: object
+        mapping: $.

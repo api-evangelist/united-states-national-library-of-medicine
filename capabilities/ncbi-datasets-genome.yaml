@@ -1,0 +1,159 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NCBI Datasets REST API — Genome
+  description: 'NCBI Datasets REST API — Genome. 2 operations. Lead operation: Get Genome by Accession. Self-contained Naftiko
+    capability covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Genome
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ncbi-datasets-genome
+    baseUri: https://api.ncbi.nlm.nih.gov/datasets/v2
+    description: NCBI Datasets REST API — Genome business capability. Self-contained, no shared references.
+    resources:
+    - name: genome-accession-accessions-dataset_report
+      path: /genome/accession/{accessions}/dataset_report
+      operations:
+      - name: getgenomebyaccession
+        method: GET
+        description: Get Genome by Accession
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: accessions
+          in: path
+          type: string
+          description: Comma-separated assembly accession numbers
+          required: true
+        - name: api_key
+          in: query
+          type: string
+    - name: genome-taxon-taxons-dataset_report
+      path: /genome/taxon/{taxons}/dataset_report
+      operations:
+      - name: getgenomedatasetreport
+        method: GET
+        description: Get Genome Dataset Report
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: taxons
+          in: path
+          type: string
+          description: Comma-separated list of taxa (species names, common names, or NCBI taxonomy IDs)
+          required: true
+        - name: api_key
+          in: query
+          type: string
+          description: NCBI API key for increased rate limits
+        - name: filters.assembly_level
+          in: query
+          type: array
+          description: Filter by assembly level
+        - name: filters.assembly_source
+          in: query
+          type: string
+          description: Filter by assembly source
+        - name: page_size
+          in: query
+          type: integer
+          description: Number of results per page (max 1000)
+        - name: page_token
+          in: query
+          type: string
+          description: Token for the next page of results
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: ncbi-datasets-genome-rest
+    port: 8080
+    description: REST adapter for NCBI Datasets REST API — Genome. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/genome/accession/{accessions}/dataset-report
+      name: genome-accession-accessions-dataset-report
+      description: REST surface for genome-accession-accessions-dataset_report.
+      operations:
+      - method: GET
+        name: getgenomebyaccession
+        description: Get Genome by Accession
+        call: ncbi-datasets-genome.getgenomebyaccession
+        with:
+          accessions: rest.accessions
+          api_key: rest.api_key
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/genome/taxon/{taxons}/dataset-report
+      name: genome-taxon-taxons-dataset-report
+      description: REST surface for genome-taxon-taxons-dataset_report.
+      operations:
+      - method: GET
+        name: getgenomedatasetreport
+        description: Get Genome Dataset Report
+        call: ncbi-datasets-genome.getgenomedatasetreport
+        with:
+          taxons: rest.taxons
+          api_key: rest.api_key
+          filters.assembly_level: rest.filters.assembly_level
+          filters.assembly_source: rest.filters.assembly_source
+          page_size: rest.page_size
+          page_token: rest.page_token
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ncbi-datasets-genome-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NCBI Datasets REST API — Genome. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: get-genome-accession
+      description: Get Genome by Accession
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-datasets-genome.getgenomebyaccession
+      with:
+        accessions: tools.accessions
+        api_key: tools.api_key
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-genome-dataset-report
+      description: Get Genome Dataset Report
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-datasets-genome.getgenomedatasetreport
+      with:
+        taxons: tools.taxons
+        api_key: tools.api_key
+        filters.assembly_level: tools.filters.assembly_level
+        filters.assembly_source: tools.filters.assembly_source
+        page_size: tools.page_size
+        page_token: tools.page_token
+      outputParameters:
+      - type: object
+        mapping: $.

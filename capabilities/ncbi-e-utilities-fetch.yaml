@@ -1,0 +1,177 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: NCBI E-Utilities API — Fetch
+  description: 'NCBI E-Utilities API — Fetch. 2 operations. Lead operation: Fetch Records. Self-contained Naftiko capability
+    covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Fetch
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: ncbi-e-utilities-fetch
+    baseUri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils
+    description: NCBI E-Utilities API — Fetch business capability. Self-contained, no shared references.
+    resources:
+    - name: efetch.fcgi
+      path: /efetch.fcgi
+      operations:
+      - name: fetchrecords
+        method: GET
+        description: Fetch Records
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: db
+          in: query
+          type: string
+          description: Target Entrez database
+          required: true
+        - name: id
+          in: query
+          type: string
+          description: Comma-separated list of UIDs to retrieve
+        - name: api_key
+          in: query
+          type: string
+          description: NCBI API key
+        - name: rettype
+          in: query
+          type: string
+          description: Record type to return (e.g. abstract, medline, fasta, gb, docsum)
+        - name: retmode
+          in: query
+          type: string
+          description: Output format
+        - name: retmax
+          in: query
+          type: integer
+          description: Maximum number of records to retrieve
+        - name: retstart
+          in: query
+          type: integer
+          description: Starting index in the UID list
+    - name: esummary.fcgi
+      path: /esummary.fcgi
+      operations:
+      - name: getsummaries
+        method: GET
+        description: Get Document Summaries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: db
+          in: query
+          type: string
+          description: Target Entrez database
+          required: true
+        - name: id
+          in: query
+          type: string
+          description: Comma-separated list of UIDs
+        - name: api_key
+          in: query
+          type: string
+          description: NCBI API key
+        - name: retmode
+          in: query
+          type: string
+    authentication:
+      type: apikey
+      key: api_key
+      value: '{{env.UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: ncbi-e-utilities-fetch-rest
+    port: 8080
+    description: REST adapter for NCBI E-Utilities API — Fetch. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/efetch-fcgi
+      name: efetch-fcgi
+      description: REST surface for efetch.fcgi.
+      operations:
+      - method: GET
+        name: fetchrecords
+        description: Fetch Records
+        call: ncbi-e-utilities-fetch.fetchrecords
+        with:
+          db: rest.db
+          id: rest.id
+          api_key: rest.api_key
+          rettype: rest.rettype
+          retmode: rest.retmode
+          retmax: rest.retmax
+          retstart: rest.retstart
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/esummary-fcgi
+      name: esummary-fcgi
+      description: REST surface for esummary.fcgi.
+      operations:
+      - method: GET
+        name: getsummaries
+        description: Get Document Summaries
+        call: ncbi-e-utilities-fetch.getsummaries
+        with:
+          db: rest.db
+          id: rest.id
+          api_key: rest.api_key
+          retmode: rest.retmode
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: ncbi-e-utilities-fetch-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for NCBI E-Utilities API — Fetch. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: fetch-records
+      description: Fetch Records
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-e-utilities-fetch.fetchrecords
+      with:
+        db: tools.db
+        id: tools.id
+        api_key: tools.api_key
+        rettype: tools.rettype
+        retmode: tools.retmode
+        retmax: tools.retmax
+        retstart: tools.retstart
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-document-summaries
+      description: Get Document Summaries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ncbi-e-utilities-fetch.getsummaries
+      with:
+        db: tools.db
+        id: tools.id
+        api_key: tools.api_key
+        retmode: tools.retmode
+      outputParameters:
+      - type: object
+        mapping: $.

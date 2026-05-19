@@ -1,0 +1,207 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: ClinicalTrials.gov API — Studies
+  description: 'ClinicalTrials.gov API — Studies. 2 operations. Lead operation: Search Clinical Trial Studies. Self-contained
+    Naftiko capability covering one United States National Library Of Medicine business surface.'
+  tags:
+  - United States National Library Of Medicine
+  - Studies
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY: UNITED_STATES_NATIONAL_LIBRARY_OF_MEDICINE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: nlm-clinicaltrials-studies
+    baseUri: https://clinicaltrials.gov/api/v2
+    description: ClinicalTrials.gov API — Studies business capability. Self-contained, no shared references.
+    resources:
+    - name: studies
+      path: /studies
+      operations:
+      - name: searchstudies
+        method: GET
+        description: Search Clinical Trial Studies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query.term
+          in: query
+          type: string
+          description: Full-text search query term
+        - name: query.cond
+          in: query
+          type: string
+          description: Condition or disease filter
+        - name: query.intr
+          in: query
+          type: string
+          description: Intervention or treatment filter
+        - name: query.spons
+          in: query
+          type: string
+          description: Sponsor or collaborator filter
+        - name: query.lead
+          in: query
+          type: string
+          description: Lead sponsor filter
+        - name: filter.overallStatus
+          in: query
+          type: array
+          description: Trial overall status filter
+        - name: filter.phase
+          in: query
+          type: array
+          description: Clinical trial phase filter
+        - name: filter.studyType
+          in: query
+          type: string
+          description: Study type filter
+        - name: filter.advanced
+          in: query
+          type: string
+          description: Advanced filter using Essie expression syntax
+        - name: pageSize
+          in: query
+          type: integer
+          description: Number of results per page (max 1000)
+        - name: pageToken
+          in: query
+          type: string
+          description: Token for fetching the next page of results
+        - name: fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to return
+        - name: sort
+          in: query
+          type: string
+          description: Sort order (e.g. @relevance, LastUpdatePostDate:desc)
+        - name: format
+          in: query
+          type: string
+          description: Response format
+    - name: studies-nctId
+      path: /studies/{nctId}
+      operations:
+      - name: getstudy
+        method: GET
+        description: Get Study by NCT ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: nctId
+          in: path
+          type: string
+          description: ClinicalTrials.gov NCT identifier (e.g. NCT04000009)
+          required: true
+        - name: fields
+          in: query
+          type: string
+          description: Comma-separated list of fields to return
+        - name: format
+          in: query
+          type: string
+  exposes:
+  - type: rest
+    namespace: nlm-clinicaltrials-studies-rest
+    port: 8080
+    description: REST adapter for ClinicalTrials.gov API — Studies. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/studies
+      name: studies
+      description: REST surface for studies.
+      operations:
+      - method: GET
+        name: searchstudies
+        description: Search Clinical Trial Studies
+        call: nlm-clinicaltrials-studies.searchstudies
+        with:
+          query.term: rest.query.term
+          query.cond: rest.query.cond
+          query.intr: rest.query.intr
+          query.spons: rest.query.spons
+          query.lead: rest.query.lead
+          filter.overallStatus: rest.filter.overallStatus
+          filter.phase: rest.filter.phase
+          filter.studyType: rest.filter.studyType
+          filter.advanced: rest.filter.advanced
+          pageSize: rest.pageSize
+          pageToken: rest.pageToken
+          fields: rest.fields
+          sort: rest.sort
+          format: rest.format
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/studies/{nctid}
+      name: studies-nctid
+      description: REST surface for studies-nctId.
+      operations:
+      - method: GET
+        name: getstudy
+        description: Get Study by NCT ID
+        call: nlm-clinicaltrials-studies.getstudy
+        with:
+          nctId: rest.nctId
+          fields: rest.fields
+          format: rest.format
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: nlm-clinicaltrials-studies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for ClinicalTrials.gov API — Studies. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: search-clinical-trial-studies
+      description: Search Clinical Trial Studies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nlm-clinicaltrials-studies.searchstudies
+      with:
+        query.term: tools.query.term
+        query.cond: tools.query.cond
+        query.intr: tools.query.intr
+        query.spons: tools.query.spons
+        query.lead: tools.query.lead
+        filter.overallStatus: tools.filter.overallStatus
+        filter.phase: tools.filter.phase
+        filter.studyType: tools.filter.studyType
+        filter.advanced: tools.filter.advanced
+        pageSize: tools.pageSize
+        pageToken: tools.pageToken
+        fields: tools.fields
+        sort: tools.sort
+        format: tools.format
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-study-nct-id
+      description: Get Study by NCT ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: nlm-clinicaltrials-studies.getstudy
+      with:
+        nctId: tools.nctId
+        fields: tools.fields
+        format: tools.format
+      outputParameters:
+      - type: object
+        mapping: $.
