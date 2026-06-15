@@ -1,0 +1,187 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ClinicalTrials.gov API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Studies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Clinical Trial Studies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://clinicaltrials.gov/api/v2/studies",
+            "params": [
+              {
+                "name": "query.term",
+                "value": "diabetes type 2",
+                "type": "query",
+                "description": "Full-text search query term"
+              },
+              {
+                "name": "query.cond",
+                "value": "Type 2 Diabetes",
+                "type": "query",
+                "description": "Condition or disease filter"
+              },
+              {
+                "name": "query.intr",
+                "value": "metformin",
+                "type": "query",
+                "description": "Intervention or treatment filter"
+              },
+              {
+                "name": "query.spons",
+                "value": "",
+                "type": "query",
+                "description": "Sponsor or collaborator filter"
+              },
+              {
+                "name": "query.lead",
+                "value": "",
+                "type": "query",
+                "description": "Lead sponsor filter"
+              },
+              {
+                "name": "filter.overallStatus",
+                "value": "",
+                "type": "query",
+                "description": "Trial overall status filter"
+              },
+              {
+                "name": "filter.phase",
+                "value": "",
+                "type": "query",
+                "description": "Clinical trial phase filter"
+              },
+              {
+                "name": "filter.studyType",
+                "value": "",
+                "type": "query",
+                "description": "Study type filter"
+              },
+              {
+                "name": "filter.advanced",
+                "value": "",
+                "type": "query",
+                "description": "Advanced filter using Essie expression syntax"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 1000)"
+              },
+              {
+                "name": "pageToken",
+                "value": "",
+                "type": "query",
+                "description": "Token for fetching the next page of results"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order (e.g. @relevance, LastUpdatePostDate:desc)"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              }
+            ]
+          },
+          "docs": "Search and filter clinical trials registered on ClinicalTrials.gov. Supports full-text search, filtering by status, phase, condition, intervention type, sponsor, location, and more. Returns paginated results."
+        },
+        {
+          "info": {
+            "name": "Get Study by NCT ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://clinicaltrials.gov/api/v2/studies/:nctId",
+            "params": [
+              {
+                "name": "nctId",
+                "value": "NCT04000009",
+                "type": "path",
+                "description": "ClinicalTrials.gov NCT identifier (e.g. NCT04000009)"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to return"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve complete study information for a specific clinical trial by its NCT (ClinicalTrials.gov) identifier."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Dataset Size",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://clinicaltrials.gov/api/v2/stats/size",
+            "params": [
+              {
+                "name": "query.cond",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter.overallStatus",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the total number of clinical trials in the ClinicalTrials.gov database, optionally filtered by query parameters."
+        },
+        {
+          "info": {
+            "name": "Get Study Fields Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://clinicaltrials.gov/api/v2/studies/metadata"
+          },
+          "docs": "Retrieve metadata about all available data fields in the ClinicalTrials.gov study record, including field names, types, and descriptions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

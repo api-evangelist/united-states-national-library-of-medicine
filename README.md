@@ -1,15 +1,11 @@
-# United States National Library of Medicine
+# United States National Library of Medicine (united-states-national-library-of-medicine)
 
-The United States National Library of Medicine (NLM) is the world's largest biomedical library. It serves as a vital resource for researchers, healthcare professionals, and the general public by providing access to a vast collection of biomedical literature and resources. The NLM offers databases, digital archives, and research tools supporting medical research, education, and patient care.
+The United States National Library of Medicine (NLM) is the world's largest biomedical library. It serves as a vital resource for researchers, healthcare professionals, and the general public by providing access to a vast collection of biomedical literature and resources. The NLM offers a wide range of services and resources including online databases, digital archives, and research tools that support medical research, education, and patient care. Key APIs include the NCBI E-Utilities (PubMed, Entrez), NCBI Datasets (genomes, genes), BLAST sequence alignment, and the ClinicalTrials.gov API.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/refs/heads/main/apis.yml)
-
-**Website:** https://www.nlm.nih.gov  
-**Developer Portal:** https://www.ncbi.nlm.nih.gov/home/develop/api/
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Contract
 - **Position:** Consuming
 - **Access:** 3rd-Party
 
@@ -24,163 +20,131 @@ The United States National Library of Medicine (NLM) is the world's largest biom
 ## Timestamps
 
 - **Created:** 2024/01/01
-- **Modified:** 2026-05-03
-
----
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### NCBI E-Utilities API
 
-The NCBI Entrez Programming Utilities provide access to all 41 Entrez databases including PubMed, PMC, Gene, Nuccore, and Protein. Supports search, retrieval, linking, and database info operations.
+The NCBI E-Utilities (Entrez Programming Utilities) are the public API to the NCBI Entrez system providing access to all Entrez databases including PubMed (biomedical literature), PMC (full-text articles), Gene, Nuccore (nucleotide sequences), Protein, and 39 other databases. Supports search, retrieval, linking, and posting operations. API keys from ncbi.nlm.nih.gov/account/ increase the rate limit from 3 to 10 requests/second.
 
-**Human URL:** https://www.ncbi.nlm.nih.gov/books/NBK25497/
+- **Human URL:** [https://www.ncbi.nlm.nih.gov/books/NBK25497/](https://www.ncbi.nlm.nih.gov/books/NBK25497/)
+- **Base URL:** `https://eutils.ncbi.nlm.nih.gov/entrez/eutils`
 
 #### Tags
 
-- Biomedical, PubMed, Literature, Genomics, Federal Government
+- Biomedical
+- PubMed
+- Literature
+- Genomics
+- Federal Government
 
 #### Properties
 
 - [Documentation](https://www.ncbi.nlm.nih.gov/books/NBK25497/)
 - [Portal](https://www.ncbi.nlm.nih.gov/home/develop/api/)
-- [OpenAPI](openapi/ncbi-e-utilities-openapi.yml)
-- [SpectralRules](rules/ncbi-e-utilities-rules.yml)
-- [NaftikoCapability](capabilities/biomedical-literature-research.yaml)
-
----
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/refs/heads/main/openapi/ncbi-e-utilities-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/refs/heads/main/rules/ncbi-e-utilities-rules.yml)
+- [Postman Collection](collections/ncbi-blast.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-blast.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/ncbi-datasets.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-datasets.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/ncbi-e-utilities.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-e-utilities.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/nlm-clinicaltrials.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/nlm-clinicaltrials.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### NCBI Datasets REST API
 
-REST API v2 for accessing genome assemblies, gene records, and protein sequences. Full OpenAPI spec available at github.com/ncbi/datasets.
+The NCBI Datasets REST API v2 provides programmatic access to biological data including genome assemblies, gene records, and protein sequences across organisms. Returns data packages containing sequences, annotations, metadata, and related data. An OpenAPI 3.0 specification is available on GitHub at github.com/ncbi/datasets. API keys are optional but increase rate limits.
 
-**Human URL:** https://www.ncbi.nlm.nih.gov/datasets/docs/v2/api/
+- **Human URL:** [https://www.ncbi.nlm.nih.gov/datasets/docs/v2/api/](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/api/)
+- **Base URL:** `https://api.ncbi.nlm.nih.gov/datasets/v2`
 
 #### Tags
 
-- Genomics, Biological Sequences, Gene Data, Federal Government
+- Genomics
+- Biological Sequences
+- Gene Data
+- Federal Government
 
 #### Properties
 
 - [Documentation](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/api/)
-- [SwaggerUI](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/api/rest-api/)
-- [OpenAPI](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/openapi3/openapi3.docs.yaml)
-- [OpenAPI](openapi/ncbi-datasets-openapi.yml)
+- [Swagger U I](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/api/rest-api/)
+- [OpenAPI](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/openapi3/openapi3.docs.yaml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/refs/heads/main/openapi/ncbi-datasets-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
 - [Repository](https://github.com/ncbi/datasets)
-- [NaftikoCapability](capabilities/biomedical-literature-research.yaml)
-
----
+- [Postman Collection](collections/ncbi-blast.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-blast.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/ncbi-datasets.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-datasets.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/ncbi-e-utilities.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-e-utilities.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/nlm-clinicaltrials.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/nlm-clinicaltrials.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### NCBI BLAST URL API
 
-Submit BLAST sequence searches and retrieve alignment results in multiple formats via HTTPS.
+The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. Supports nucleotide and protein sequence searches against NCBI databases. The API can check the status of submitted searches and retrieve results in multiple formats including XML, JSON, text, and ASN.1.
 
-**Human URL:** https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+- **Human URL:** [https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html](https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html)
+- **Base URL:** `https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi`
 
 #### Tags
 
-- Genomics, Sequence Alignment, Bioinformatics, Federal Government
+- Genomics
+- Sequence Alignment
+- Bioinformatics
+- Federal Government
 
 #### Properties
 
 - [Documentation](https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html)
-- [OpenAPI](openapi/ncbi-blast-openapi.yml)
-
----
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/refs/heads/main/openapi/ncbi-blast-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/ncbi-blast.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-blast.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/ncbi-datasets.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-datasets.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/ncbi-e-utilities.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-e-utilities.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/nlm-clinicaltrials.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/nlm-clinicaltrials.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### ClinicalTrials.gov API
 
-Programmatic access to clinical trial data for hundreds of thousands of registered trials including protocols, eligibility, locations, and results. No API key required.
+The ClinicalTrials.gov API provides programmatic access to clinical trial data registered with ClinicalTrials.gov, operated by the National Library of Medicine. Returns study information, eligibility criteria, outcomes, locations, sponsor/collaborator data, and results for hundreds of thousands of trials. No API key required.
 
-**Human URL:** https://clinicaltrials.gov/data-api/api
+- **Human URL:** [https://clinicaltrials.gov/data-api/api](https://clinicaltrials.gov/data-api/api)
+- **Base URL:** `https://clinicaltrials.gov/api/v2`
 
 #### Tags
 
-- Clinical Trials, Healthcare, Research, Federal Government
+- Clinical Trials
+- Healthcare
+- Research
+- Federal Government
 
 #### Properties
 
 - [Documentation](https://clinicaltrials.gov/data-api/api)
 - [Portal](https://clinicaltrials.gov/data-api/api#introduction)
-- [OpenAPI](openapi/nlm-clinicaltrials-openapi.yml)
-- [NaftikoCapability](capabilities/biomedical-literature-research.yaml)
-
----
-
-## Artifacts
-
-### OpenAPI Specifications
-
-| File | Description |
-|------|-------------|
-| [ncbi-e-utilities-openapi.yml](openapi/ncbi-e-utilities-openapi.yml) | NCBI E-Utilities Entrez API (esearch, efetch, esummary, elink) |
-| [ncbi-datasets-openapi.yml](openapi/ncbi-datasets-openapi.yml) | NCBI Datasets REST API v2 (genomes, genes, taxonomy) |
-| [ncbi-blast-openapi.yml](openapi/ncbi-blast-openapi.yml) | NCBI BLAST URL API (submit, status, retrieve) |
-| [nlm-clinicaltrials-openapi.yml](openapi/nlm-clinicaltrials-openapi.yml) | ClinicalTrials.gov REST API v2 |
-
-### Spectral Rules
-
-| File | Description |
-|------|-------------|
-| [ncbi-e-utilities-rules.yml](rules/ncbi-e-utilities-rules.yml) | Spectral lint rules for NCBI API conventions |
-
-### Naftiko Capabilities
-
-#### Shared Definitions
-
-| File | APIs |
-|------|------|
-| [shared/ncbi-e-utilities.yaml](capabilities/shared/ncbi-e-utilities.yaml) | NCBI E-Utilities (4 operations) |
-| [shared/nlm-clinicaltrials.yaml](capabilities/shared/nlm-clinicaltrials.yaml) | ClinicalTrials.gov API (3 operations) |
-
-#### Workflow Capabilities
-
-| File | Description | Tools |
-|------|-------------|-------|
-| [biomedical-literature-research.yaml](capabilities/biomedical-literature-research.yaml) | Biomedical literature and clinical research workflows | 7 tools |
-
-### JSON Schemas
-
-| File | Description |
-|------|-------------|
-| [ncbi-pubmed-article-schema.json](json-schema/ncbi-pubmed-article-schema.json) | Schema for PubMed article records |
-| [nlm-clinical-trial-schema.json](json-schema/nlm-clinical-trial-schema.json) | Schema for ClinicalTrials.gov study records |
-
-### JSON Structures
-
-| File | Description |
-|------|-------------|
-| [ncbi-pubmed-article-structure.json](json-structure/ncbi-pubmed-article-structure.json) | Field structure for PubMed article records |
-
-### JSON-LD Context
-
-| File | Description |
-|------|-------------|
-| [united-states-national-library-of-medicine-context.jsonld](json-ld/united-states-national-library-of-medicine-context.jsonld) | Linked data context aligning NLM vocabulary with schema.org and BioSchemas |
-
-### Examples
-
-| File | Operation |
-|------|-----------|
-| [ncbi-esearch-pubmed-example.json](examples/ncbi-esearch-pubmed-example.json) | Search PubMed (E-Utilities esearch) |
-| [ncbi-datasets-get-genome-example.json](examples/ncbi-datasets-get-genome-example.json) | Get Genome Dataset Report (NCBI Datasets) |
-| [nlm-clinicaltrials-search-example.json](examples/nlm-clinicaltrials-search-example.json) | Search Clinical Trials |
-
-### Vocabulary
-
-| File | Description |
-|------|-------------|
-| [united-states-national-library-of-medicine-vocabulary.yml](vocabulary/united-states-national-library-of-medicine-vocabulary.yml) | NLM biomedical vocabulary (PubMed, BLAST, MeSH, E-Utilities, NCT IDs, etc.) |
-
----
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/united-states-national-library-of-medicine/refs/heads/main/openapi/nlm-clinicaltrials-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/ncbi-blast.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-blast.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/ncbi-datasets.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-datasets.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/ncbi-e-utilities.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/ncbi-e-utilities.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/nlm-clinicaltrials.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/nlm-clinicaltrials.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
+- [LinkedIn](https://www.linkedin.com/company/national-library-of-medicine-nlm)
 - [Portal](https://www.ncbi.nlm.nih.gov/home/develop/api/)
-
----
 
 ## Maintainers
 
-**FN:** Kin Lane  
+**FN:** Kin Lane
 **Email:** kin@apievangelist.com

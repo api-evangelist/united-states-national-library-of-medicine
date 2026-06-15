@@ -1,0 +1,641 @@
+{
+  "item": [
+    {
+      "id": "48115d6a-f572-49d4-99b4-3ddb61bb2d9f",
+      "name": "Genome",
+      "description": {
+        "content": "Genome assembly data and metadata",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "388c2eeb-6217-4f9b-91cb-3c9194a6ef93",
+          "name": "Get Genome Dataset Report",
+          "request": {
+            "name": "Get Genome Dataset Report",
+            "description": {
+              "content": "Retrieve a report of genome assemblies for one or more taxonomic groups. Returns assembly metadata including accession, assembly level, total length, chromosome count, and submission dates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "genome",
+                "taxon",
+                ":taxons",
+                "dataset_report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "NCBI API key for increased rate limits"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters.assembly_level",
+                  "value": "<string>",
+                  "description": "Filter by assembly level"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters.assembly_level",
+                  "value": "<string>",
+                  "description": "Filter by assembly level"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters.assembly_source",
+                  "value": "<string>",
+                  "description": "Filter by assembly source"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "Number of results per page (max 1000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_token",
+                  "value": "<string>",
+                  "description": "Token for the next page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taxons",
+                  "description": "(Required) Comma-separated list of taxa (species names, common names, or NCBI taxonomy IDs)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3b1315a9-4dac-4b54-9d5b-3bdb2e6e809e",
+              "name": "Genome assembly report",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "genome",
+                    "taxon",
+                    ":taxons",
+                    "dataset_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters.assembly_level",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters.assembly_level",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters.assembly_source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "page_token",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taxons",
+                      "description": "(Required) Comma-separated list of taxa (species names, common names, or NCBI taxonomy IDs)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reports\": [\n    {\n      \"accession\": \"string\",\n      \"currentAccession\": \"string\",\n      \"submitter\": \"string\",\n      \"organism\": {\n        \"taxId\": 185,\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"assemblyInfo\": {\n        \"assemblyLevel\": \"string\",\n        \"assemblyStatus\": \"string\",\n        \"assemblyName\": \"string\",\n        \"submissionDate\": \"2003-02-02\",\n        \"releaseDate\": \"1985-12-22\"\n      },\n      \"assemblyStats\": {\n        \"totalLength\": 4713,\n        \"numberOfChromosomes\": 2490,\n        \"contigN50\": 2955,\n        \"scaffoldN50\": 3468,\n        \"gcCount\": 1984,\n        \"gcPercent\": 5932.56674818932\n      }\n    },\n    {\n      \"accession\": \"string\",\n      \"currentAccession\": \"string\",\n      \"submitter\": \"string\",\n      \"organism\": {\n        \"taxId\": 1710,\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"assemblyInfo\": {\n        \"assemblyLevel\": \"string\",\n        \"assemblyStatus\": \"string\",\n        \"assemblyName\": \"string\",\n        \"submissionDate\": \"1970-05-18\",\n        \"releaseDate\": \"2019-09-15\"\n      },\n      \"assemblyStats\": {\n        \"totalLength\": 6941,\n        \"numberOfChromosomes\": 560,\n        \"contigN50\": 9692,\n        \"scaffoldN50\": 1034,\n        \"gcCount\": 5787,\n        \"gcPercent\": 2894.20851103416\n      }\n    }\n  ],\n  \"totalCount\": 9955,\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a378ad51-26e4-46fc-be19-45a43eba9f2b",
+          "name": "Get Genome by Accession",
+          "request": {
+            "name": "Get Genome by Accession",
+            "description": {
+              "content": "Retrieve genome assembly metadata for specific assembly accessions (e.g. GCF_000001405.40 for the human reference genome).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "genome",
+                "accession",
+                ":accessions",
+                "dataset_report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "accessions",
+                  "description": "(Required) Comma-separated assembly accession numbers"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0a1adecc-1fc1-4d83-8255-c538a0a52dd6",
+              "name": "Genome assembly metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "genome",
+                    "accession",
+                    ":accessions",
+                    "dataset_report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "accessions",
+                      "description": "(Required) Comma-separated assembly accession numbers"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reports\": [\n    {\n      \"accession\": \"string\",\n      \"currentAccession\": \"string\",\n      \"submitter\": \"string\",\n      \"organism\": {\n        \"taxId\": 6529,\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"assemblyInfo\": {\n        \"assemblyLevel\": \"string\",\n        \"assemblyStatus\": \"string\",\n        \"assemblyName\": \"string\",\n        \"submissionDate\": \"1973-02-23\",\n        \"releaseDate\": \"2017-01-10\"\n      },\n      \"assemblyStats\": {\n        \"totalLength\": 3689,\n        \"numberOfChromosomes\": 1796,\n        \"contigN50\": 4344,\n        \"scaffoldN50\": 749,\n        \"gcCount\": 3838,\n        \"gcPercent\": 1136.7923960662883\n      }\n    },\n    {\n      \"accession\": \"string\",\n      \"currentAccession\": \"string\",\n      \"submitter\": \"string\",\n      \"organism\": {\n        \"taxId\": 7972,\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"assemblyInfo\": {\n        \"assemblyLevel\": \"string\",\n        \"assemblyStatus\": \"string\",\n        \"assemblyName\": \"string\",\n        \"submissionDate\": \"2022-01-02\",\n        \"releaseDate\": \"1969-12-10\"\n      },\n      \"assemblyStats\": {\n        \"totalLength\": 16,\n        \"numberOfChromosomes\": 5410,\n        \"contigN50\": 5761,\n        \"scaffoldN50\": 8730,\n        \"gcCount\": 4929,\n        \"gcPercent\": 9113.599621466912\n      }\n    }\n  ],\n  \"totalCount\": 1444,\n  \"nextPageToken\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "510d057a-2cea-4508-8302-5e3b94e6d305",
+      "name": "Gene",
+      "description": {
+        "content": "Gene records and sequence data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "70cb13f2-cd55-4595-b863-2c5cdb2cb3fe",
+          "name": "Get Gene Records By IDs",
+          "request": {
+            "name": "Get Gene Records By IDs",
+            "description": {
+              "content": "Retrieve gene records for one or more NCBI gene IDs, including gene symbol, name, description, location, and associated sequence accessions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gene",
+                "id",
+                ":gene_ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gene_ids",
+                  "description": "(Required) Comma-separated NCBI gene IDs"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72a6373f-e993-41c0-a55f-6f1e3e9645e0",
+              "name": "Gene records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gene",
+                    "id",
+                    ":gene_ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gene_ids",
+                      "description": "(Required) Comma-separated NCBI gene IDs"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reports\": [\n    {\n      \"geneId\": 9998,\n      \"symbol\": \"string\",\n      \"description\": \"string\",\n      \"taxId\": 8989,\n      \"organism\": {\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"chromosomes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\"\n    },\n    {\n      \"geneId\": 8922,\n      \"symbol\": \"string\",\n      \"description\": \"string\",\n      \"taxId\": 4071,\n      \"organism\": {\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"chromosomes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\"\n    }\n  ],\n  \"totalCount\": 3718\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fcc5cd9-be4e-4ec2-bcee-ce616d3e4f7d",
+          "name": "Get Gene by Symbol and Taxon",
+          "request": {
+            "name": "Get Gene by Symbol and Taxon",
+            "description": {
+              "content": "Retrieve gene records by gene symbol for a specific organism. Returns gene details including ID, name, description, location, and chromosome.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gene",
+                "symbol",
+                ":symbols",
+                "taxon",
+                ":taxon"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "symbols",
+                  "description": "(Required) Gene symbol(s) (e.g. BRCA1, TP53)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taxon",
+                  "description": "(Required) Organism name or NCBI taxonomy ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5be47eac-85c4-4700-bd5f-8996f83d06bf",
+              "name": "Gene records matching symbol and taxon",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gene",
+                    "symbol",
+                    ":symbols",
+                    "taxon",
+                    ":taxon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbols",
+                      "description": "(Required) Gene symbol(s) (e.g. BRCA1, TP53)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taxon",
+                      "description": "(Required) Organism name or NCBI taxonomy ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reports\": [\n    {\n      \"geneId\": 237,\n      \"symbol\": \"string\",\n      \"description\": \"string\",\n      \"taxId\": 1875,\n      \"organism\": {\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"chromosomes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\"\n    },\n    {\n      \"geneId\": 4789,\n      \"symbol\": \"string\",\n      \"description\": \"string\",\n      \"taxId\": 3425,\n      \"organism\": {\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"chromosomes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\"\n    }\n  ],\n  \"totalCount\": 3828\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "096552d8-2972-4dc7-8767-c572398798d0",
+      "name": "Taxonomy",
+      "description": {
+        "content": "NCBI taxonomy information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91dbe914-a86c-49cc-b189-982e9f403d24",
+          "name": "Get Taxonomy Information",
+          "request": {
+            "name": "Get Taxonomy Information",
+            "description": {
+              "content": "Retrieve NCBI taxonomy information for one or more taxa by name or taxonomy ID, including scientific name, common name, lineage, and rank.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxonomy",
+                "taxon",
+                ":taxons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taxons",
+                  "description": "(Required) Comma-separated taxon names or taxonomy IDs"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a4ddca0-e7b3-4481-802b-7d486166dbe8",
+              "name": "Taxonomy information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "taxon",
+                    ":taxons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taxons",
+                      "description": "(Required) Comma-separated taxon names or taxonomy IDs"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ncbi.nlm.nih.gov/datasets/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7a74c58f-0ca1-4c42-a976-1efcfda5e3ad",
+    "name": "NCBI Datasets REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NCBI Datasets REST API v2 provides programmatic access to biological data across NCBI databases including genome assemblies, gene records, and protein sequences. Returns data packages or metadata for genomes by taxon, assembly accession, or biosample; genes by gene ID or symbol; and viruses by taxon. The full OpenAPI specification is available at https://www.ncbi.nlm.nih.gov/datasets/docs/v2/openapi3/openapi3.docs.yaml and on GitHub at github.com/ncbi/datasets.\n\nContact Support:\n Name: NCBI Datasets",
+      "type": "text/plain"
+    }
+  }
+}

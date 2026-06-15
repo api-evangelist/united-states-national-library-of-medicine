@@ -1,0 +1,324 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI E-Utilities API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Entrez Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
+            "params": [
+              {
+                "name": "db",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Target Entrez database (e.g. pubmed, nuccore, protein, gene, snp, mesh, pmc)"
+              },
+              {
+                "name": "term",
+                "value": "cancer[Title] AND 2023[PDAT]",
+                "type": "query",
+                "description": "Entrez text query with optional field tags and Boolean operators"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "NCBI API key for increased rate limits"
+              },
+              {
+                "name": "retmax",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of UIDs to return (default 20, max 10000)"
+              },
+              {
+                "name": "retstart",
+                "value": "",
+                "type": "query",
+                "description": "Index of first UID in results (for pagination)"
+              },
+              {
+                "name": "retmode",
+                "value": "",
+                "type": "query",
+                "description": "Output format"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "datetype",
+                "value": "",
+                "type": "query",
+                "description": "Date type for date range filtering"
+              },
+              {
+                "name": "mindate",
+                "value": "2023/01/01",
+                "type": "query",
+                "description": "Minimum date for range filter (YYYY/MM/DD)"
+              },
+              {
+                "name": "maxdate",
+                "value": "2023/12/31",
+                "type": "query",
+                "description": "Maximum date for range filter (YYYY/MM/DD)"
+              },
+              {
+                "name": "usehistory",
+                "value": "",
+                "type": "query",
+                "description": "Store results on NCBI server (y/n)"
+              }
+            ]
+          },
+          "docs": "Search any Entrez database and retrieve document identifiers (UIDs) matching a query. Supports full Entrez query syntax including Boolean operators, field tags, and date ranges."
+        },
+        {
+          "info": {
+            "name": "Check Query Spelling",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/espell.fcgi",
+            "params": [
+              {
+                "name": "db",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Target Entrez database"
+              },
+              {
+                "name": "term",
+                "value": "asthmaa",
+                "type": "query",
+                "description": "Query term to check spelling for"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve spelling suggestions for a search term in a given Entrez database. Helpful for correcting misspelled gene names, species names, or medical terms."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fetch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi",
+            "params": [
+              {
+                "name": "db",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Target Entrez database"
+              },
+              {
+                "name": "id",
+                "value": "33515491,33515492",
+                "type": "query",
+                "description": "Comma-separated list of UIDs to retrieve"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "NCBI API key"
+              },
+              {
+                "name": "rettype",
+                "value": "abstract",
+                "type": "query",
+                "description": "Record type to return (e.g. abstract, medline, fasta, gb, docsum)"
+              },
+              {
+                "name": "retmode",
+                "value": "",
+                "type": "query",
+                "description": "Output format"
+              },
+              {
+                "name": "retmax",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to retrieve"
+              },
+              {
+                "name": "retstart",
+                "value": "",
+                "type": "query",
+                "description": "Starting index in the UID list"
+              }
+            ]
+          },
+          "docs": "Retrieve full records from an Entrez database in various formats. Commonly used to retrieve PubMed article abstracts, nucleotide sequences in FASTA format, or gene records."
+        },
+        {
+          "info": {
+            "name": "Get Document Summaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi",
+            "params": [
+              {
+                "name": "db",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Target Entrez database"
+              },
+              {
+                "name": "id",
+                "value": "33515491,33515492",
+                "type": "query",
+                "description": "Comma-separated list of UIDs"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "NCBI API key"
+              },
+              {
+                "name": "retmode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve document summaries (DocSums) for records from any Entrez database. Returns a concise summary of record attributes including title, authors, journal, and publication date for PubMed records."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Link",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Linked Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi",
+            "params": [
+              {
+                "name": "dbfrom",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Source database"
+              },
+              {
+                "name": "db",
+                "value": "",
+                "type": "query",
+                "description": "Target database (leave empty for related records in same db)"
+              },
+              {
+                "name": "id",
+                "value": "33515491",
+                "type": "query",
+                "description": "Comma-separated source UIDs"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cmd",
+                "value": "",
+                "type": "query",
+                "description": "Link command (neighbor, prlinks, llinks, acheck, ncheck, lcheck)"
+              },
+              {
+                "name": "linkname",
+                "value": "",
+                "type": "query",
+                "description": "Named link to follow (e.g. pubmed_pubmed_citedin)"
+              },
+              {
+                "name": "retmode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Find records related to a set of input UIDs in any Entrez database. Supports finding related articles, linked sequences, gene-to-protein links, and other cross-database connections."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Database Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/einfo.fcgi",
+            "params": [
+              {
+                "name": "db",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Database name (omit to list all databases)"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retmode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about Entrez databases including list of all databases, or details about a specific database including field names, links, and statistics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

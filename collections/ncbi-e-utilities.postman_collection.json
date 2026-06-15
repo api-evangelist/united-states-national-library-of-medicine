@@ -1,0 +1,841 @@
+{
+  "item": [
+    {
+      "id": "a6e240e8-a6fc-425a-aa6a-c51db96b71e1",
+      "name": "Search",
+      "description": {
+        "content": "Search Entrez databases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8fc7d79a-f402-4152-8585-d46ea1220e50",
+          "name": "Search Entrez Database",
+          "request": {
+            "name": "Search Entrez Database",
+            "description": {
+              "content": "Search any Entrez database and retrieve document identifiers (UIDs) matching a query. Supports full Entrez query syntax including Boolean operators, field tags, and date ranges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "esearch.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "(Required) Target Entrez database (e.g. pubmed, nuccore, protein, gene, snp, mesh, pmc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>",
+                  "description": "(Required) Entrez text query with optional field tags and Boolean operators"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "NCBI API key for increased rate limits"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmax",
+                  "value": "20",
+                  "description": "Maximum number of UIDs to return (default 20, max 10000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "retstart",
+                  "value": "0",
+                  "description": "Index of first UID in results (for pagination)"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "json",
+                  "description": "Output format"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "datetype",
+                  "value": "<string>",
+                  "description": "Date type for date range filtering"
+                },
+                {
+                  "disabled": false,
+                  "key": "mindate",
+                  "value": "<string>",
+                  "description": "Minimum date for range filter (YYYY/MM/DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxdate",
+                  "value": "<string>",
+                  "description": "Maximum date for range filter (YYYY/MM/DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "usehistory",
+                  "value": "<string>",
+                  "description": "Store results on NCBI server (y/n)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "15649f69-c249-4a44-a0a2-ea2c6dead1f0",
+              "name": "Search results with UIDs and counts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "esearch.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "term",
+                      "value": "cancer[Title] AND 2023[PDAT]"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmax",
+                      "value": "20"
+                    },
+                    {
+                      "key": "retstart",
+                      "value": "0"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "json"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mindate",
+                      "value": "2023/01/01"
+                    },
+                    {
+                      "key": "maxdate",
+                      "value": "2023/12/31"
+                    },
+                    {
+                      "key": "usehistory",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"esearchresult\": {\n    \"count\": \"string\",\n    \"retmax\": \"string\",\n    \"retstart\": \"string\",\n    \"querykey\": \"string\",\n    \"webenv\": \"string\",\n    \"idlist\": [\n      \"string\",\n      \"string\"\n    ],\n    \"querytranslation\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64e775e6-6084-4468-aae3-a2644e00d646",
+          "name": "Check Query Spelling",
+          "request": {
+            "name": "Check Query Spelling",
+            "description": {
+              "content": "Retrieve spelling suggestions for a search term in a given Entrez database. Helpful for correcting misspelled gene names, species names, or medical terms.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "espell.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "(Required) Target Entrez database"
+                },
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>",
+                  "description": "(Required) Query term to check spelling for"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4166971a-8b6b-4bd2-99c7-0be5bba34efb",
+              "name": "Spelling suggestions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "espell.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "term",
+                      "value": "asthmaa"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "17bc6b11-d963-446d-b65d-eac3fa272a9c",
+      "name": "Fetch",
+      "description": {
+        "content": "Retrieve records from Entrez databases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a8bf860-3895-40ca-aca7-625f0bc620f9",
+          "name": "Fetch Records",
+          "request": {
+            "name": "Fetch Records",
+            "description": {
+              "content": "Retrieve full records from an Entrez database in various formats. Commonly used to retrieve PubMed article abstracts, nucleotide sequences in FASTA format, or gene records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "efetch.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "(Required) Target Entrez database"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Comma-separated list of UIDs to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "NCBI API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "rettype",
+                  "value": "<string>",
+                  "description": "Record type to return (e.g. abstract, medline, fasta, gb, docsum)"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "<string>",
+                  "description": "Output format"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmax",
+                  "value": "20",
+                  "description": "Maximum number of records to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "retstart",
+                  "value": "<integer>",
+                  "description": "Starting index in the UID list"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb804b09-c54a-439c-a9ab-5fd87254ab7f",
+              "name": "Requested records in the specified format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "efetch.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "id",
+                      "value": "33515491,33515492"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rettype",
+                      "value": "abstract"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmax",
+                      "value": "20"
+                    },
+                    {
+                      "key": "retstart",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1c1c804-f3e8-4962-86aa-91451b1c5a5c",
+          "name": "Get Document Summaries",
+          "request": {
+            "name": "Get Document Summaries",
+            "description": {
+              "content": "Retrieve document summaries (DocSums) for records from any Entrez database. Returns a concise summary of record attributes including title, authors, journal, and publication date for PubMed records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "esummary.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "(Required) Target Entrez database"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Comma-separated list of UIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "NCBI API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1c080fd1-d382-4deb-bdc5-5e4ec3fac126",
+              "name": "Document summaries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "esummary.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "id",
+                      "value": "33515491,33515492"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": {\n      \"uid\": \"string\",\n      \"pubdate\": \"string\",\n      \"epubdate\": \"string\",\n      \"source\": \"string\",\n      \"title\": \"string\",\n      \"volume\": \"string\",\n      \"issue\": \"string\",\n      \"pages\": \"string\",\n      \"fulljournalname\": \"string\",\n      \"doi\": \"string\",\n      \"pmcrefcount\": 12,\n      \"pubtype\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f7e679de-1826-418f-8426-bd4032799d78",
+      "name": "Link",
+      "description": {
+        "content": "Find linked records across databases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7a396513-ec5c-4644-ac6c-d069a7d1788e",
+          "name": "Get Linked Records",
+          "request": {
+            "name": "Get Linked Records",
+            "description": {
+              "content": "Find records related to a set of input UIDs in any Entrez database. Supports finding related articles, linked sequences, gene-to-protein links, and other cross-database connections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elink.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dbfrom",
+                  "value": "<string>",
+                  "description": "(Required) Source database"
+                },
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "Target database (leave empty for related records in same db)"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated source UIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cmd",
+                  "value": "neighbor",
+                  "description": "Link command (neighbor, prlinks, llinks, acheck, ncheck, lcheck)"
+                },
+                {
+                  "disabled": false,
+                  "key": "linkname",
+                  "value": "<string>",
+                  "description": "Named link to follow (e.g. pubmed_pubmed_citedin)"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0d0e7be9-f588-4e47-82c3-e58bb2fbdacc",
+              "name": "Linked record UIDs and link names",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elink.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dbfrom",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "db",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "33515491"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cmd",
+                      "value": "neighbor"
+                    },
+                    {
+                      "key": "linkname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "488c7ddc-1ac5-4323-8b54-7bcc3e734653",
+      "name": "Info",
+      "description": {
+        "content": "Database information and statistics",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3f6db5de-8c7c-4c7b-a465-53c49686495d",
+          "name": "Get Database Information",
+          "request": {
+            "name": "Get Database Information",
+            "description": {
+              "content": "Retrieve information about Entrez databases including list of all databases, or details about a specific database including field names, links, and statistics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "einfo.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "Database name (omit to list all databases)"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4e5b1e6-b0b9-4ac0-81b6-55f9bb2e9301",
+              "name": "Database information or list of databases",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "einfo.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "49632134-7086-465b-b3f7-3fb3225a5ee7",
+    "name": "NCBI E-Utilities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NCBI E-Utilities (Entrez Programming Utilities) are the public API to the NCBI Entrez system providing access to all 41 Entrez databases including PubMed (biomedical literature), PMC (full-text articles), Gene, Nuccore (nucleotide sequences), Protein, SNP, and more. Supports search, retrieval, linking, posting, and spelling operations. API keys from https://www.ncbi.nlm.nih.gov/account/ increase the rate limit from 3 to 10 requests per second.\n\nContact Support:\n Name: NCBI\n Email: info@ncbi.nlm.nih.gov",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,689 @@
+{
+  "item": [
+    {
+      "id": "abca6185-dd76-4c76-872f-a7596bfbe4a5",
+      "name": "Studies",
+      "description": {
+        "content": "Clinical trial study search and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "787bf657-0254-435e-9a05-1c9fee24a87f",
+          "name": "Search Clinical Trial Studies",
+          "request": {
+            "name": "Search Clinical Trial Studies",
+            "description": {
+              "content": "Search and filter clinical trials registered on ClinicalTrials.gov. Supports full-text search, filtering by status, phase, condition, intervention type, sponsor, location, and more. Returns paginated results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "studies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query.term",
+                  "value": "<string>",
+                  "description": "Full-text search query term"
+                },
+                {
+                  "disabled": false,
+                  "key": "query.cond",
+                  "value": "<string>",
+                  "description": "Condition or disease filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "query.intr",
+                  "value": "<string>",
+                  "description": "Intervention or treatment filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "query.spons",
+                  "value": "<string>",
+                  "description": "Sponsor or collaborator filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "query.lead",
+                  "value": "<string>",
+                  "description": "Lead sponsor filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.overallStatus",
+                  "value": "<string>",
+                  "description": "Trial overall status filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.overallStatus",
+                  "value": "<string>",
+                  "description": "Trial overall status filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.phase",
+                  "value": "<string>",
+                  "description": "Clinical trial phase filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.phase",
+                  "value": "<string>",
+                  "description": "Clinical trial phase filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.studyType",
+                  "value": "<string>",
+                  "description": "Study type filter"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.advanced",
+                  "value": "<string>",
+                  "description": "Advanced filter using Essie expression syntax"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "10",
+                  "description": "Number of results per page (max 1000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageToken",
+                  "value": "<string>",
+                  "description": "Token for fetching the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order (e.g. @relevance, LastUpdatePostDate:desc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b02a3979-18b3-4f3c-9d6c-d83dc26c3579",
+              "name": "Paginated clinical trial search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "studies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query.term",
+                      "value": "diabetes type 2"
+                    },
+                    {
+                      "key": "query.cond",
+                      "value": "Type 2 Diabetes"
+                    },
+                    {
+                      "key": "query.intr",
+                      "value": "metformin"
+                    },
+                    {
+                      "key": "query.spons",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query.lead",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.overallStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.overallStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.phase",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.phase",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.studyType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.advanced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"studies\": [\n    {\n      \"protocolSection\": {\n        \"identificationModule\": {\n          \"nctId\": \"string\",\n          \"orgStudyIdInfo\": {},\n          \"briefTitle\": \"string\",\n          \"officialTitle\": \"string\"\n        },\n        \"statusModule\": {\n          \"overallStatus\": \"string\",\n          \"startDateStruct\": {},\n          \"primaryCompletionDateStruct\": {},\n          \"completionDateStruct\": {}\n        },\n        \"sponsorCollaboratorsModule\": {\n          \"leadSponsor\": {\n            \"name\": \"string\",\n            \"class\": \"string\"\n          }\n        },\n        \"descriptionModule\": {\n          \"briefSummary\": \"string\",\n          \"detailedDescription\": \"string\"\n        },\n        \"conditionsModule\": {\n          \"conditions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"keywords\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"designModule\": {\n          \"studyType\": \"string\",\n          \"phases\": [\n            \"string\",\n            \"string\"\n          ],\n          \"designInfo\": {}\n        },\n        \"eligibilityModule\": {\n          \"eligibilityCriteria\": \"string\",\n          \"healthyVolunteers\": \"string\",\n          \"sex\": \"string\",\n          \"minimumAge\": \"string\",\n          \"maximumAge\": \"string\"\n        },\n        \"contactsLocationsModule\": {\n          \"locations\": [\n            {\n              \"facility\": \"string\",\n              \"city\": \"string\",\n              \"state\": \"string\",\n              \"country\": \"string\",\n              \"status\": \"string\"\n            },\n            {\n              \"facility\": \"string\",\n              \"city\": \"string\",\n              \"state\": \"string\",\n              \"country\": \"string\",\n              \"status\": \"string\"\n            }\n          ]\n        },\n        \"armsInterventionsModule\": {\n          \"interventions\": [\n            {\n              \"type\": \"string\",\n              \"name\": \"string\",\n              \"description\": \"string\"\n            },\n            {\n              \"type\": \"string\",\n              \"name\": \"string\",\n              \"description\": \"string\"\n            }\n          ]\n        }\n      },\n      \"resultsSection\": {},\n      \"derivedSection\": {}\n    },\n    {\n      \"protocolSection\": {\n        \"identificationModule\": {\n          \"nctId\": \"string\",\n          \"orgStudyIdInfo\": {},\n          \"briefTitle\": \"string\",\n          \"officialTitle\": \"string\"\n        },\n        \"statusModule\": {\n          \"overallStatus\": \"string\",\n          \"startDateStruct\": {},\n          \"primaryCompletionDateStruct\": {},\n          \"completionDateStruct\": {}\n        },\n        \"sponsorCollaboratorsModule\": {\n          \"leadSponsor\": {\n            \"name\": \"string\",\n            \"class\": \"string\"\n          }\n        },\n        \"descriptionModule\": {\n          \"briefSummary\": \"string\",\n          \"detailedDescription\": \"string\"\n        },\n        \"conditionsModule\": {\n          \"conditions\": [\n            \"string\",\n            \"string\"\n          ],\n          \"keywords\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"designModule\": {\n          \"studyType\": \"string\",\n          \"phases\": [\n            \"string\",\n            \"string\"\n          ],\n          \"designInfo\": {}\n        },\n        \"eligibilityModule\": {\n          \"eligibilityCriteria\": \"string\",\n          \"healthyVolunteers\": \"string\",\n          \"sex\": \"string\",\n          \"minimumAge\": \"string\",\n          \"maximumAge\": \"string\"\n        },\n        \"contactsLocationsModule\": {\n          \"locations\": [\n            {\n              \"facility\": \"string\",\n              \"city\": \"string\",\n              \"state\": \"string\",\n              \"country\": \"string\",\n              \"status\": \"string\"\n            },\n            {\n              \"facility\": \"string\",\n              \"city\": \"string\",\n              \"state\": \"string\",\n              \"country\": \"string\",\n              \"status\": \"string\"\n            }\n          ]\n        },\n        \"armsInterventionsModule\": {\n          \"interventions\": [\n            {\n              \"type\": \"string\",\n              \"name\": \"string\",\n              \"description\": \"string\"\n            },\n            {\n              \"type\": \"string\",\n              \"name\": \"string\",\n              \"description\": \"string\"\n            }\n          ]\n        }\n      },\n      \"resultsSection\": {},\n      \"derivedSection\": {}\n    }\n  ],\n  \"nextPageToken\": \"string\",\n  \"totalCount\": 26\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2241ee9-8012-4837-adf6-a9f514d942c7",
+              "name": "Invalid query parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "studies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query.term",
+                      "value": "diabetes type 2"
+                    },
+                    {
+                      "key": "query.cond",
+                      "value": "Type 2 Diabetes"
+                    },
+                    {
+                      "key": "query.intr",
+                      "value": "metformin"
+                    },
+                    {
+                      "key": "query.spons",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query.lead",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.overallStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.overallStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.phase",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.phase",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.studyType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.advanced",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    },
+                    {
+                      "key": "pageToken",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a5bc754-e325-4f87-b2aa-65a9c4adac66",
+          "name": "Get Study by NCT ID",
+          "request": {
+            "name": "Get Study by NCT ID",
+            "description": {
+              "content": "Retrieve complete study information for a specific clinical trial by its NCT (ClinicalTrials.gov) identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "studies",
+                ":nctId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of fields to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "nctId",
+                  "description": "(Required) ClinicalTrials.gov NCT identifier (e.g. NCT04000009)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32e06372-b356-49b7-83eb-1c6a6dbdcc56",
+              "name": "Complete clinical trial study record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "studies",
+                    ":nctId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "nctId",
+                      "description": "(Required) ClinicalTrials.gov NCT identifier (e.g. NCT04000009)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"protocolSection\": {\n    \"identificationModule\": {\n      \"nctId\": \"string\",\n      \"orgStudyIdInfo\": {},\n      \"briefTitle\": \"string\",\n      \"officialTitle\": \"string\"\n    },\n    \"statusModule\": {\n      \"overallStatus\": \"string\",\n      \"startDateStruct\": {},\n      \"primaryCompletionDateStruct\": {},\n      \"completionDateStruct\": {}\n    },\n    \"sponsorCollaboratorsModule\": {\n      \"leadSponsor\": {\n        \"name\": \"string\",\n        \"class\": \"string\"\n      }\n    },\n    \"descriptionModule\": {\n      \"briefSummary\": \"string\",\n      \"detailedDescription\": \"string\"\n    },\n    \"conditionsModule\": {\n      \"conditions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"keywords\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"designModule\": {\n      \"studyType\": \"string\",\n      \"phases\": [\n        \"string\",\n        \"string\"\n      ],\n      \"designInfo\": {}\n    },\n    \"eligibilityModule\": {\n      \"eligibilityCriteria\": \"string\",\n      \"healthyVolunteers\": \"string\",\n      \"sex\": \"string\",\n      \"minimumAge\": \"string\",\n      \"maximumAge\": \"string\"\n    },\n    \"contactsLocationsModule\": {\n      \"locations\": [\n        {\n          \"facility\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"country\": \"string\",\n          \"status\": \"string\"\n        },\n        {\n          \"facility\": \"string\",\n          \"city\": \"string\",\n          \"state\": \"string\",\n          \"country\": \"string\",\n          \"status\": \"string\"\n        }\n      ]\n    },\n    \"armsInterventionsModule\": {\n      \"interventions\": [\n        {\n          \"type\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\"\n        },\n        {\n          \"type\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\"\n        }\n      ]\n    }\n  },\n  \"resultsSection\": {},\n  \"derivedSection\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2f6f03e-97ab-46eb-97f3-881549201733",
+              "name": "Study not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "studies",
+                    ":nctId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "nctId",
+                      "description": "(Required) ClinicalTrials.gov NCT identifier (e.g. NCT04000009)"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "7adf2d8c-38e8-4dd2-9b65-12c273bff39c",
+      "name": "Metadata",
+      "description": {
+        "content": "API metadata and field definitions",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "086f926f-ff9c-4727-99f9-6c1a402887c5",
+          "name": "Get Dataset Size",
+          "request": {
+            "name": "Get Dataset Size",
+            "description": {
+              "content": "Returns the total number of clinical trials in the ClinicalTrials.gov database, optionally filtered by query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stats",
+                "size"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query.cond",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter.overallStatus",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c8eef651-4a4d-4765-ba8d-bfa49bc7df11",
+              "name": "Total count of matching studies",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stats",
+                    "size"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query.cond",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter.overallStatus",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalCount\": 53\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dccf6c99-7b5f-45e7-95de-71a8d8760f2d",
+          "name": "Get Study Fields Metadata",
+          "request": {
+            "name": "Get Study Fields Metadata",
+            "description": {
+              "content": "Retrieve metadata about all available data fields in the ClinicalTrials.gov study record, including field names, types, and descriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "studies",
+                "metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6768a11f-3b17-4175-acce-421ba3aac188",
+              "name": "Study field metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "studies",
+                    "metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://clinicaltrials.gov/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dddd2a8c-6741-4ce1-b48f-55a81f5319d4",
+    "name": "ClinicalTrials.gov API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The ClinicalTrials.gov API v2 provides programmatic access to clinical trial data registered with ClinicalTrials.gov, operated by the U.S. National Library of Medicine. Returns study information, eligibility criteria, outcomes, locations, sponsor and collaborator data, and results for hundreds of thousands of registered clinical trials. No API key required.\n\nContact Support:\n Name: ClinicalTrials.gov",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI Datasets REST API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Genome",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Genome Dataset Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/genome/taxon/:taxons/dataset_report",
+            "params": [
+              {
+                "name": "taxons",
+                "value": "human",
+                "type": "path",
+                "description": "Comma-separated list of taxa (species names, common names, or NCBI taxonomy IDs)"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "NCBI API key for increased rate limits"
+              },
+              {
+                "name": "filters.assembly_level",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assembly level"
+              },
+              {
+                "name": "filters.assembly_source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assembly source"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 1000)"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token for the next page of results"
+              }
+            ]
+          },
+          "docs": "Retrieve a report of genome assemblies for one or more taxonomic groups. Returns assembly metadata including accession, assembly level, total length, chromosome count, and submission dates."
+        },
+        {
+          "info": {
+            "name": "Get Genome by Accession",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/:accessions/dataset_report",
+            "params": [
+              {
+                "name": "accessions",
+                "value": "GCF_000001405.40",
+                "type": "path",
+                "description": "Comma-separated assembly accession numbers"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve genome assembly metadata for specific assembly accessions (e.g. GCF_000001405.40 for the human reference genome)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Gene",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Gene Records By IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/id/:gene_ids",
+            "params": [
+              {
+                "name": "gene_ids",
+                "value": "672,675",
+                "type": "path",
+                "description": "Comma-separated NCBI gene IDs"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve gene records for one or more NCBI gene IDs, including gene symbol, name, description, location, and associated sequence accessions."
+        },
+        {
+          "info": {
+            "name": "Get Gene by Symbol and Taxon",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/gene/symbol/:symbols/taxon/:taxon",
+            "params": [
+              {
+                "name": "symbols",
+                "value": "BRCA1",
+                "type": "path",
+                "description": "Gene symbol(s) (e.g. BRCA1, TP53)"
+              },
+              {
+                "name": "taxon",
+                "value": "human",
+                "type": "path",
+                "description": "Organism name or NCBI taxonomy ID"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve gene records by gene symbol for a specific organism. Returns gene details including ID, name, description, location, and chromosome."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Taxonomy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Taxonomy Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ncbi.nlm.nih.gov/datasets/v2/taxonomy/taxon/:taxons",
+            "params": [
+              {
+                "name": "taxons",
+                "value": "9606",
+                "type": "path",
+                "description": "Comma-separated taxon names or taxonomy IDs"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve NCBI taxonomy information for one or more taxa by name or taxonomy ID, including scientific name, common name, lineage, and rank."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
