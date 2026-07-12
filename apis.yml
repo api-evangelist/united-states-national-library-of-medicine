@@ -104,6 +104,10 @@ tags:
 kind: contract
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 common:
+  - type: DomainSecurity
+    url: security/united-states-national-library-of-medicine-domain-security.yml
+  - type: Authentication
+    url: authentication/united-states-national-library-of-medicine-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/national-library-of-medicine-nlm
   - url: https://www.ncbi.nlm.nih.gov/home/develop/api/
