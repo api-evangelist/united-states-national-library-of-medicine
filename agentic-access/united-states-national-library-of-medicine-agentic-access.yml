@@ -1,0 +1,193 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/ncbi-blast-openapi.yml, openapi/ncbi-datasets-openapi.yml, openapi/ncbi-e-utilities-openapi.yml,
+  openapi/nlm-clinicaltrials-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 17
+  by_action_class:
+    acting: 1
+    connected: 16
+  by_consequence:
+    write: 1
+    read: 16
+  human_in_the_loop_required: 0
+operations:
+- path: /Blast.cgi
+  method: put
+  operationId: submitBlastSearch
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Blast.cgi
+  method: get
+  operationId: getBlastResults
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /genome/taxon/{taxons}/dataset_report
+  method: get
+  operationId: getGenomeDatasetReport
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /genome/accession/{accessions}/dataset_report
+  method: get
+  operationId: getGenomeByAccession
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /gene/id/{gene_ids}
+  method: get
+  operationId: getGeneByIds
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /gene/symbol/{symbols}/taxon/{taxon}
+  method: get
+  operationId: getGeneBySymbol
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /taxonomy/taxon/{taxons}
+  method: get
+  operationId: getTaxonomy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /esearch.fcgi
+  method: get
+  operationId: searchDatabase
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /efetch.fcgi
+  method: get
+  operationId: fetchRecords
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /esummary.fcgi
+  method: get
+  operationId: getSummaries
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /elink.fcgi
+  method: get
+  operationId: getLinkages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /einfo.fcgi
+  method: get
+  operationId: getDatabaseInfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /espell.fcgi
+  method: get
+  operationId: checkSpelling
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studies
+  method: get
+  operationId: searchStudies
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studies/{nctId}
+  method: get
+  operationId: getStudy
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /stats/size
+  method: get
+  operationId: getDatasetSize
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /studies/metadata
+  method: get
+  operationId: getStudyFieldsMetadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

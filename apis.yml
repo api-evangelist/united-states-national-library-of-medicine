@@ -104,6 +104,8 @@ tags:
 kind: contract
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 common:
+  - type: AgenticAccess
+    url: agentic-access/united-states-national-library-of-medicine-agentic-access.yml
   - type: DomainSecurity
     url: security/united-states-national-library-of-medicine-domain-security.yml
   - type: Authentication
