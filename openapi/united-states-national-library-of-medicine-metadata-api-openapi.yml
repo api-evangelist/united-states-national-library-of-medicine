@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: NCBI URL BLAST Metadata API
+  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
+  version: 1.0.0
+  contact:
+    name: NCBI BLAST
+    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://blast.ncbi.nlm.nih.gov/blast
+  description: NCBI BLAST Server
+tags:
+- name: Metadata
+  description: API metadata and field definitions
+paths:
+  /stats/size:
+    get:
+      operationId: getDatasetSize
+      summary: Get Dataset Size
+      description: Returns the total number of clinical trials in the ClinicalTrials.gov database, optionally filtered by query parameters.
+      tags:
+      - Metadata
+      parameters:
+      - name: query.cond
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: filter.overallStatus
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Total count of matching studies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalCount:
+                    type: integer
+                    description: Total number of studies matching the query
+  /studies/metadata:
+    get:
+      operationId: getStudyFieldsMetadata
+      summary: Get Study Fields Metadata
+      description: Retrieve metadata about all available data fields in the ClinicalTrials.gov study record, including field names, types, and descriptions.
+      tags:
+      - Metadata
+      responses:
+        '200':
+          description: Study field metadata
+          content:
+            application/json:
+              schema:
+                type: object

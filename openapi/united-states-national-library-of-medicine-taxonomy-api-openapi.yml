@@ -1,0 +1,45 @@
+openapi: 3.0.3
+info:
+  title: NCBI URL BLAST Taxonomy API
+  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
+  version: 1.0.0
+  contact:
+    name: NCBI BLAST
+    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://blast.ncbi.nlm.nih.gov/blast
+  description: NCBI BLAST Server
+tags:
+- name: Taxonomy
+  description: NCBI taxonomy information
+paths:
+  /taxonomy/taxon/{taxons}:
+    get:
+      operationId: getTaxonomy
+      summary: Get Taxonomy Information
+      description: Retrieve NCBI taxonomy information for one or more taxa by name or taxonomy ID, including scientific name, common name, lineage, and rank.
+      tags:
+      - Taxonomy
+      parameters:
+      - name: taxons
+        in: path
+        description: Comma-separated taxon names or taxonomy IDs
+        required: true
+        schema:
+          type: string
+        example: '9606'
+      - name: api_key
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Taxonomy information
+          content:
+            application/json:
+              schema:
+                type: object

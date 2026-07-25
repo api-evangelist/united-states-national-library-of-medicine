@@ -1,0 +1,193 @@
+openapi: 3.0.3
+info:
+  title: NCBI URL BLAST Search API
+  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
+  version: 1.0.0
+  contact:
+    name: NCBI BLAST
+    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://blast.ncbi.nlm.nih.gov/blast
+  description: NCBI BLAST Server
+tags:
+- name: Search
+  description: Search Entrez databases
+paths:
+  /esearch.fcgi:
+    get:
+      operationId: searchDatabase
+      summary: Search Entrez Database
+      description: Search any Entrez database and retrieve document identifiers (UIDs) matching a query. Supports full Entrez query syntax including Boolean operators, field tags, and date ranges.
+      tags:
+      - Search
+      parameters:
+      - name: db
+        in: query
+        description: Target Entrez database (e.g. pubmed, nuccore, protein, gene, snp, mesh, pmc)
+        required: true
+        schema:
+          type: string
+        example: pubmed
+      - name: term
+        in: query
+        description: Entrez text query with optional field tags and Boolean operators
+        required: true
+        schema:
+          type: string
+        example: cancer[Title] AND 2023[PDAT]
+      - name: api_key
+        in: query
+        description: NCBI API key for increased rate limits
+        required: false
+        schema:
+          type: string
+      - name: retmax
+        in: query
+        description: Maximum number of UIDs to return (default 20, max 10000)
+        required: false
+        schema:
+          type: integer
+          default: 20
+          maximum: 10000
+      - name: retstart
+        in: query
+        description: Index of first UID in results (for pagination)
+        required: false
+        schema:
+          type: integer
+          default: 0
+      - name: retmode
+        in: query
+        description: Output format
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      - name: sort
+        in: query
+        description: Sort order for results
+        required: false
+        schema:
+          type: string
+          enum:
+          - relevance
+          - pub+date
+          - Author
+          - JournalName
+      - name: datetype
+        in: query
+        description: Date type for date range filtering
+        required: false
+        schema:
+          type: string
+          enum:
+          - PDAT
+          - MDAT
+          - EDAT
+      - name: mindate
+        in: query
+        description: Minimum date for range filter (YYYY/MM/DD)
+        required: false
+        schema:
+          type: string
+        example: 2023/01/01
+      - name: maxdate
+        in: query
+        description: Maximum date for range filter (YYYY/MM/DD)
+        required: false
+        schema:
+          type: string
+        example: 2023/12/31
+      - name: usehistory
+        in: query
+        description: Store results on NCBI server (y/n)
+        required: false
+        schema:
+          type: string
+          enum:
+          - y
+          - n
+      responses:
+        '200':
+          description: Search results with UIDs and counts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESearchResult'
+  /espell.fcgi:
+    get:
+      operationId: checkSpelling
+      summary: Check Query Spelling
+      description: Retrieve spelling suggestions for a search term in a given Entrez database. Helpful for correcting misspelled gene names, species names, or medical terms.
+      tags:
+      - Search
+      parameters:
+      - name: db
+        in: query
+        description: Target Entrez database
+        required: true
+        schema:
+          type: string
+        example: pubmed
+      - name: term
+        in: query
+        description: Query term to check spelling for
+        required: true
+        schema:
+          type: string
+        example: asthmaa
+      - name: api_key
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Spelling suggestions
+          content:
+            text/xml:
+              schema:
+                type: string
+components:
+  schemas:
+    ESearchResult:
+      type: object
+      description: Results from an Entrez search query
+      properties:
+        esearchresult:
+          type: object
+          properties:
+            count:
+              type: string
+              description: Total number of matching records
+            retmax:
+              type: string
+              description: Number of UIDs returned
+            retstart:
+              type: string
+              description: Index of first UID returned
+            querykey:
+              type: string
+              description: Server-side query key (if usehistory=y)
+            webenv:
+              type: string
+              description: Web environment token (if usehistory=y)
+            idlist:
+              type: array
+              description: List of returned UIDs
+              items:
+                type: string
+            translationset:
+              type: array
+              description: Query translations applied
+              items:
+                type: object
+            querytranslation:
+              type: string
+              description: Translated query as used by Entrez

@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: NCBI URL BLAST Gene API
+  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
+  version: 1.0.0
+  contact:
+    name: NCBI BLAST
+    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://blast.ncbi.nlm.nih.gov/blast
+  description: NCBI BLAST Server
+tags:
+- name: Gene
+  description: Gene records and sequence data
+paths:
+  /gene/id/{gene_ids}:
+    get:
+      operationId: getGeneByIds
+      summary: Get Gene Records By IDs
+      description: Retrieve gene records for one or more NCBI gene IDs, including gene symbol, name, description, location, and associated sequence accessions.
+      tags:
+      - Gene
+      parameters:
+      - name: gene_ids
+        in: path
+        description: Comma-separated NCBI gene IDs
+        required: true
+        schema:
+          type: string
+        example: 672,675
+      - name: api_key
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+      responses:
+        '200':
+          description: Gene records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneDatasetReport'
+  /gene/symbol/{symbols}/taxon/{taxon}:
+    get:
+      operationId: getGeneBySymbol
+      summary: Get Gene by Symbol and Taxon
+      description: Retrieve gene records by gene symbol for a specific organism. Returns gene details including ID, name, description, location, and chromosome.
+      tags:
+      - Gene
+      parameters:
+      - name: symbols
+        in: path
+        description: Gene symbol(s) (e.g. BRCA1, TP53)
+        required: true
+        schema:
+          type: string
+        example: BRCA1
+      - name: taxon
+        in: path
+        description: Organism name or NCBI taxonomy ID
+        required: true
+        schema:
+          type: string
+        example: human
+      - name: api_key
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Gene records matching symbol and taxon
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneDatasetReport'
+components:
+  schemas:
+    GeneRecord:
+      type: object
+      description: An NCBI gene record
+      properties:
+        geneId:
+          type: integer
+          description: NCBI gene ID
+        symbol:
+          type: string
+          description: Official gene symbol
+        description:
+          type: string
+          description: Gene description
+        taxId:
+          type: integer
+          description: NCBI taxonomy ID
+        organism:
+          type: object
+          properties:
+            sciName:
+              type: string
+            commonName:
+              type: string
+        chromosomes:
+          type: array
+          items:
+            type: string
+          description: Chromosomes where gene is located
+        type:
+          type: string
+          description: Gene type (protein-coding, ncRNA, pseudogene, etc.)
+    GeneDatasetReport:
+      type: object
+      description: Gene dataset report
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeneRecord'
+        totalCount:
+          type: integer

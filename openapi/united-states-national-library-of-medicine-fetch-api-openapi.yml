@@ -1,0 +1,173 @@
+openapi: 3.0.3
+info:
+  title: NCBI URL BLAST Fetch API
+  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
+  version: 1.0.0
+  contact:
+    name: NCBI BLAST
+    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://blast.ncbi.nlm.nih.gov/blast
+  description: NCBI BLAST Server
+tags:
+- name: Fetch
+  description: Retrieve records from Entrez databases
+paths:
+  /efetch.fcgi:
+    get:
+      operationId: fetchRecords
+      summary: Fetch Records
+      description: Retrieve full records from an Entrez database in various formats. Commonly used to retrieve PubMed article abstracts, nucleotide sequences in FASTA format, or gene records.
+      tags:
+      - Fetch
+      parameters:
+      - name: db
+        in: query
+        description: Target Entrez database
+        required: true
+        schema:
+          type: string
+        example: pubmed
+      - name: id
+        in: query
+        description: Comma-separated list of UIDs to retrieve
+        required: false
+        schema:
+          type: string
+        example: 33515491,33515492
+      - name: api_key
+        in: query
+        description: NCBI API key
+        required: false
+        schema:
+          type: string
+      - name: rettype
+        in: query
+        description: Record type to return (e.g. abstract, medline, fasta, gb, docsum)
+        required: false
+        schema:
+          type: string
+        example: abstract
+      - name: retmode
+        in: query
+        description: Output format
+        required: false
+        schema:
+          type: string
+          enum:
+          - xml
+          - text
+          - json
+          - asn.1
+      - name: retmax
+        in: query
+        description: Maximum number of records to retrieve
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - name: retstart
+        in: query
+        description: Starting index in the UID list
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Requested records in the specified format
+          content:
+            text/xml:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+  /esummary.fcgi:
+    get:
+      operationId: getSummaries
+      summary: Get Document Summaries
+      description: Retrieve document summaries (DocSums) for records from any Entrez database. Returns a concise summary of record attributes including title, authors, journal, and publication date for PubMed records.
+      tags:
+      - Fetch
+      parameters:
+      - name: db
+        in: query
+        description: Target Entrez database
+        required: true
+        schema:
+          type: string
+        example: pubmed
+      - name: id
+        in: query
+        description: Comma-separated list of UIDs
+        required: false
+        schema:
+          type: string
+        example: 33515491,33515492
+      - name: api_key
+        in: query
+        description: NCBI API key
+        required: false
+        schema:
+          type: string
+      - name: retmode
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+          default: json
+      responses:
+        '200':
+          description: Document summaries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESummaryResult'
+components:
+  schemas:
+    ESummaryResult:
+      type: object
+      description: Document summaries from Entrez
+      properties:
+        result:
+          type: object
+          description: Map of UID to document summary
+          additionalProperties:
+            type: object
+            properties:
+              uid:
+                type: string
+              pubdate:
+                type: string
+              epubdate:
+                type: string
+              source:
+                type: string
+              authors:
+                type: array
+                items:
+                  type: object
+              title:
+                type: string
+              volume:
+                type: string
+              issue:
+                type: string
+              pages:
+                type: string
+              fulljournalname:
+                type: string
+              doi:
+                type: string
+              pmcrefcount:
+                type: integer
+              pubtype:
+                type: array
+                items:
+                  type: string

@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: NCBI URL BLAST Genome API
+  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
+  version: 1.0.0
+  contact:
+    name: NCBI BLAST
+    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://blast.ncbi.nlm.nih.gov/blast
+  description: NCBI BLAST Server
+tags:
+- name: Genome
+  description: Genome assembly data and metadata
+paths:
+  /genome/taxon/{taxons}/dataset_report:
+    get:
+      operationId: getGenomeDatasetReport
+      summary: Get Genome Dataset Report
+      description: Retrieve a report of genome assemblies for one or more taxonomic groups. Returns assembly metadata including accession, assembly level, total length, chromosome count, and submission dates.
+      tags:
+      - Genome
+      parameters:
+      - name: taxons
+        in: path
+        description: Comma-separated list of taxa (species names, common names, or NCBI taxonomy IDs)
+        required: true
+        schema:
+          type: string
+        example: human
+      - name: api_key
+        in: query
+        description: NCBI API key for increased rate limits
+        required: false
+        schema:
+          type: string
+      - name: filters.assembly_level
+        in: query
+        description: Filter by assembly level
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - chromosome
+            - complete_genome
+            - contig
+            - scaffold
+        style: form
+        explode: true
+      - name: filters.assembly_source
+        in: query
+        description: Filter by assembly source
+        required: false
+        schema:
+          type: string
+          enum:
+          - refseq
+          - genbank
+      - name: page_size
+        in: query
+        description: Number of results per page (max 1000)
+        required: false
+        schema:
+          type: integer
+          default: 20
+      - name: page_token
+        in: query
+        description: Token for the next page of results
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Genome assembly report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenomeDatasetReport'
+  /genome/accession/{accessions}/dataset_report:
+    get:
+      operationId: getGenomeByAccession
+      summary: Get Genome by Accession
+      description: Retrieve genome assembly metadata for specific assembly accessions (e.g. GCF_000001405.40 for the human reference genome).
+      tags:
+      - Genome
+      parameters:
+      - name: accessions
+        in: path
+        description: Comma-separated assembly accession numbers
+        required: true
+        schema:
+          type: string
+        example: GCF_000001405.40
+      - name: api_key
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Genome assembly metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenomeDatasetReport'
+components:
+  schemas:
+    GenomeDatasetReport:
+      type: object
+      description: Genome assembly dataset report
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenomeAssembly'
+        totalCount:
+          type: integer
+        nextPageToken:
+          type: string
+    GenomeAssembly:
+      type: object
+      description: A genome assembly record
+      properties:
+        accession:
+          type: string
+          description: Assembly accession (e.g. GCF_000001405.40)
+        currentAccession:
+          type: string
+        submitter:
+          type: string
+        organism:
+          type: object
+          properties:
+            taxId:
+              type: integer
+            sciName:
+              type: string
+            commonName:
+              type: string
+        assemblyInfo:
+          type: object
+          properties:
+            assemblyLevel:
+              type: string
+            assemblyStatus:
+              type: string
+            assemblyName:
+              type: string
+            submissionDate:
+              type: string
+              format: date
+            releaseDate:
+              type: string
+              format: date
+        assemblyStats:
+          type: object
+          properties:
+            totalLength:
+              type: integer
+            numberOfChromosomes:
+              type: integer
+            contigN50:
+              type: integer
+            scaffoldN50:
+              type: integer
+            gcCount:
+              type: integer
+            gcPercent:
+              type: number

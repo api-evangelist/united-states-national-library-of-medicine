@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: NCBI URL BLAST Link API
+  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
+  version: 1.0.0
+  contact:
+    name: NCBI BLAST
+    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://blast.ncbi.nlm.nih.gov/blast
+  description: NCBI BLAST Server
+tags:
+- name: Link
+  description: Find linked records across databases
+paths:
+  /elink.fcgi:
+    get:
+      operationId: getLinkages
+      summary: Get Linked Records
+      description: Find records related to a set of input UIDs in any Entrez database. Supports finding related articles, linked sequences, gene-to-protein links, and other cross-database connections.
+      tags:
+      - Link
+      parameters:
+      - name: dbfrom
+        in: query
+        description: Source database
+        required: true
+        schema:
+          type: string
+        example: pubmed
+      - name: db
+        in: query
+        description: Target database (leave empty for related records in same db)
+        required: false
+        schema:
+          type: string
+      - name: id
+        in: query
+        description: Comma-separated source UIDs
+        required: true
+        schema:
+          type: string
+        example: '33515491'
+      - name: api_key
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: cmd
+        in: query
+        description: Link command (neighbor, prlinks, llinks, acheck, ncheck, lcheck)
+        required: false
+        schema:
+          type: string
+          default: neighbor
+      - name: linkname
+        in: query
+        description: Named link to follow (e.g. pubmed_pubmed_citedin)
+        required: false
+        schema:
+          type: string
+      - name: retmode
+        in: query
+        required: false
+        schema:
+          type: string
+          default: json
+      responses:
+        '200':
+          description: Linked record UIDs and link names
+          content:
+            application/json:
+              schema:
+                type: object
