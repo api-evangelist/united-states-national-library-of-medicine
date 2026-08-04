@@ -1,0 +1,403 @@
+openapi: 3.0.3
+info:
+  title: ClinicalTrials.gov API
+  description: >-
+    The ClinicalTrials.gov API v2 provides programmatic access to clinical trial
+    data registered with ClinicalTrials.gov, operated by the U.S. National Library
+    of Medicine. Returns study information, eligibility criteria, outcomes,
+    locations, sponsor and collaborator data, and results for hundreds of thousands
+    of registered clinical trials. No API key required.
+  version: 2.0.0
+  contact:
+    name: ClinicalTrials.gov
+    url: https://clinicaltrials.gov/data-api/api
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+  - url: https://clinicaltrials.gov/api/v2
+    description: ClinicalTrials.gov API v2
+tags:
+  - name: Studies
+    description: Clinical trial study search and retrieval
+  - name: Metadata
+    description: API metadata and field definitions
+paths:
+  /studies:
+    get:
+      operationId: searchStudies
+      summary: Search Clinical Trial Studies
+      description: >-
+        Search and filter clinical trials registered on ClinicalTrials.gov.
+        Supports full-text search, filtering by status, phase, condition,
+        intervention type, sponsor, location, and more. Returns paginated results.
+      tags:
+        - Studies
+      parameters:
+        - name: query.term
+          in: query
+          description: Full-text search query term
+          required: false
+          schema:
+            type: string
+          example: 'diabetes type 2'
+        - name: query.cond
+          in: query
+          description: Condition or disease filter
+          required: false
+          schema:
+            type: string
+          example: 'Type 2 Diabetes'
+        - name: query.intr
+          in: query
+          description: Intervention or treatment filter
+          required: false
+          schema:
+            type: string
+          example: 'metformin'
+        - name: query.spons
+          in: query
+          description: Sponsor or collaborator filter
+          required: false
+          schema:
+            type: string
+        - name: query.lead
+          in: query
+          description: Lead sponsor filter
+          required: false
+          schema:
+            type: string
+        - name: filter.overallStatus
+          in: query
+          description: Trial overall status filter
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - RECRUITING
+                - ACTIVE_NOT_RECRUITING
+                - COMPLETED
+                - ENROLLING_BY_INVITATION
+                - NOT_YET_RECRUITING
+                - SUSPENDED
+                - TERMINATED
+                - WITHDRAWN
+                - AVAILABLE
+                - NO_LONGER_AVAILABLE
+                - TEMPORARILY_NOT_AVAILABLE
+                - APPROVED_FOR_MARKETING
+                - WITHHELD
+                - UNKNOWN
+          style: form
+          explode: true
+        - name: filter.phase
+          in: query
+          description: Clinical trial phase filter
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - EARLY_PHASE1
+                - PHASE1
+                - PHASE2
+                - PHASE3
+                - PHASE4
+                - NA
+          style: form
+          explode: true
+        - name: filter.studyType
+          in: query
+          description: Study type filter
+          required: false
+          schema:
+            type: string
+            enum:
+              - INTERVENTIONAL
+              - OBSERVATIONAL
+              - EXPANDED_ACCESS
+        - name: filter.advanced
+          in: query
+          description: Advanced filter using Essie expression syntax
+          required: false
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          description: Number of results per page (max 1000)
+          required: false
+          schema:
+            type: integer
+            default: 10
+            maximum: 1000
+        - name: pageToken
+          in: query
+          description: Token for fetching the next page of results
+          required: false
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Comma-separated list of fields to return
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: Sort order (e.g. @relevance, LastUpdatePostDate:desc)
+          required: false
+          schema:
+            type: string
+        - name: format
+          in: query
+          description: Response format
+          required: false
+          schema:
+            type: string
+            enum:
+              - json
+              - csv
+            default: json
+      responses:
+        '200':
+          description: Paginated clinical trial search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudySearchResponse'
+        '400':
+          description: Invalid query parameters
+
+  /studies/{nctId}:
+    get:
+      operationId: getStudy
+      summary: Get Study by NCT ID
+      description: >-
+        Retrieve complete study information for a specific clinical trial by its
+        NCT (ClinicalTrials.gov) identifier.
+      tags:
+        - Studies
+      parameters:
+        - name: nctId
+          in: path
+          description: ClinicalTrials.gov NCT identifier (e.g. NCT04000009)
+          required: true
+          schema:
+            type: string
+            pattern: '^NCT[0-9]{8}$'
+          example: NCT04000009
+        - name: fields
+          in: query
+          description: Comma-separated list of fields to return
+          required: false
+          schema:
+            type: string
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+            default: json
+      responses:
+        '200':
+          description: Complete clinical trial study record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Study'
+        '404':
+          description: Study not found
+
+  /stats/size:
+    get:
+      operationId: getDatasetSize
+      summary: Get Dataset Size
+      description: >-
+        Returns the total number of clinical trials in the ClinicalTrials.gov
+        database, optionally filtered by query parameters.
+      tags:
+        - Metadata
+      parameters:
+        - name: query.cond
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: filter.overallStatus
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Total count of matching studies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalCount:
+                    type: integer
+                    description: Total number of studies matching the query
+
+  /studies/metadata:
+    get:
+      operationId: getStudyFieldsMetadata
+      summary: Get Study Fields Metadata
+      description: >-
+        Retrieve metadata about all available data fields in the ClinicalTrials.gov
+        study record, including field names, types, and descriptions.
+      tags:
+        - Metadata
+      responses:
+        '200':
+          description: Study field metadata
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    StudySearchResponse:
+      type: object
+      description: Paginated search results
+      properties:
+        studies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Study'
+        nextPageToken:
+          type: string
+          description: Token for requesting the next page
+        totalCount:
+          type: integer
+          description: Total number of matching studies
+
+    Study:
+      type: object
+      description: A clinical trial study record from ClinicalTrials.gov
+      properties:
+        protocolSection:
+          $ref: '#/components/schemas/ProtocolSection'
+        resultsSection:
+          type: object
+          description: Clinical trial results (if available)
+        derivedSection:
+          type: object
+          description: Derived and computed fields
+
+    ProtocolSection:
+      type: object
+      description: Protocol information for a clinical trial
+      properties:
+        identificationModule:
+          type: object
+          properties:
+            nctId:
+              type: string
+              description: ClinicalTrials.gov identifier
+            orgStudyIdInfo:
+              type: object
+            briefTitle:
+              type: string
+            officialTitle:
+              type: string
+        statusModule:
+          type: object
+          properties:
+            overallStatus:
+              type: string
+            startDateStruct:
+              type: object
+            primaryCompletionDateStruct:
+              type: object
+            completionDateStruct:
+              type: object
+        sponsorCollaboratorsModule:
+          type: object
+          properties:
+            leadSponsor:
+              type: object
+              properties:
+                name:
+                  type: string
+                class:
+                  type: string
+        descriptionModule:
+          type: object
+          properties:
+            briefSummary:
+              type: string
+            detailedDescription:
+              type: string
+        conditionsModule:
+          type: object
+          properties:
+            conditions:
+              type: array
+              items:
+                type: string
+            keywords:
+              type: array
+              items:
+                type: string
+        designModule:
+          type: object
+          properties:
+            studyType:
+              type: string
+            phases:
+              type: array
+              items:
+                type: string
+            designInfo:
+              type: object
+        eligibilityModule:
+          type: object
+          properties:
+            eligibilityCriteria:
+              type: string
+            healthyVolunteers:
+              type: string
+            sex:
+              type: string
+            minimumAge:
+              type: string
+            maximumAge:
+              type: string
+        contactsLocationsModule:
+          type: object
+          properties:
+            locations:
+              type: array
+              items:
+                type: object
+                properties:
+                  facility:
+                    type: string
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  country:
+                    type: string
+                  status:
+                    type: string
+        armsInterventionsModule:
+          type: object
+          properties:
+            interventions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  name:
+                    type: string
+                  description:
+                    type: string

@@ -1,0 +1,32 @@
+{
+  "provider": "united-states-national-library-of-medicine",
+  "sources": [
+    "united-states-national-library-of-medicine-blast-api-openapi.yml",
+    "united-states-national-library-of-medicine-fetch-api-openapi.yml",
+    "united-states-national-library-of-medicine-gene-api-openapi.yml",
+    "united-states-national-library-of-medicine-genome-api-openapi.yml",
+    "united-states-national-library-of-medicine-info-api-openapi.yml",
+    "united-states-national-library-of-medicine-link-api-openapi.yml",
+    "united-states-national-library-of-medicine-metadata-api-openapi.yml",
+    "united-states-national-library-of-medicine-search-api-openapi.yml",
+    "united-states-national-library-of-medicine-studies-api-openapi.yml",
+    "united-states-national-library-of-medicine-taxonomy-api-openapi.yml"
+  ],
+  "outputs": [
+    "united-states-national-library-of-medicine-blast-api-openapi.yml",
+    "united-states-national-library-of-medicine-fetch-api-openapi.yml",
+    "united-states-national-library-of-medicine-gene-api-openapi.yml",
+    "united-states-national-library-of-medicine-genome-api-openapi.yml",
+    "united-states-national-library-of-medicine-info-api-openapi.yml",
+    "united-states-national-library-of-medicine-link-api-openapi.yml",
+    "united-states-national-library-of-medicine-metadata-api-openapi.yml",
+    "united-states-national-library-of-medicine-search-api-openapi.yml",
+    "united-states-national-library-of-medicine-studies-api-openapi.yml",
+    "united-states-national-library-of-medicine-taxonomy-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

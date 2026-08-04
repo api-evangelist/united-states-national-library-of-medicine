@@ -1,0 +1,236 @@
+openapi: 3.0.3
+info:
+  title: NCBI BLAST URL API
+  description: >-
+    The NCBI BLAST URL API allows developers to submit BLAST (Basic Local
+    Alignment Search Tool) sequence searches for processing at NCBI using HTTPS.
+    The API operates in three phases: (1) PUT request to submit a search and
+    receive a request ID (RID), (2) polling GET requests to check search status,
+    (3) GET request to retrieve results in the desired format. Supports
+    nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.
+  version: 1.0.0
+  contact:
+    name: NCBI BLAST
+    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+servers:
+  - url: https://blast.ncbi.nlm.nih.gov/blast
+    description: NCBI BLAST Server
+tags:
+  - name: BLAST
+    description: BLAST sequence search submission and retrieval
+paths:
+  /Blast.cgi:
+    put:
+      operationId: submitBlastSearch
+      summary: Submit BLAST Search
+      description: >-
+        Submit a BLAST sequence search and receive a Request ID (RID) for
+        status checking and result retrieval. Include CMD=Put and required
+        parameters in the request body.
+      tags:
+        - BLAST
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - CMD
+                - PROGRAM
+                - DATABASE
+                - QUERY
+              properties:
+                CMD:
+                  type: string
+                  enum:
+                    - Put
+                  description: Command type
+                PROGRAM:
+                  type: string
+                  description: BLAST program to use
+                  enum:
+                    - blastn
+                    - blastp
+                    - blastx
+                    - tblastn
+                    - tblastx
+                DATABASE:
+                  type: string
+                  description: Target sequence database
+                  example: nt
+                QUERY:
+                  type: string
+                  description: Query sequence in FASTA format or accession number
+                FORMAT_TYPE:
+                  type: string
+                  description: Output format type
+                  enum:
+                    - XML
+                    - XML2
+                    - JSON2
+                    - Tabular
+                    - Text
+                HITLIST_SIZE:
+                  type: integer
+                  description: Number of hits to return
+                  default: 100
+                EXPECT:
+                  type: number
+                  description: E-value threshold
+                  default: 10
+                WORD_SIZE:
+                  type: integer
+                  description: Word size for initial match
+                FILTER:
+                  type: string
+                  description: Low complexity filter (T or F)
+      responses:
+        '200':
+          description: HTML page containing RID and RTOE values
+          content:
+            text/html:
+              schema:
+                type: string
+    get:
+      operationId: getBlastResults
+      summary: Get BLAST Results or Status
+      description: >-
+        Check the status of a BLAST search or retrieve results using the
+        Request ID (RID). Use CMD=Get with the RID to check status or retrieve
+        results. Format_Type parameter controls output format for results.
+      tags:
+        - BLAST
+      parameters:
+        - name: CMD
+          in: query
+          description: Command type (Get to check status/retrieve results)
+          required: true
+          schema:
+            type: string
+            enum:
+              - Get
+              - Wait
+              - Delete
+          example: Get
+        - name: RID
+          in: query
+          description: Request ID from submission response
+          required: true
+          schema:
+            type: string
+          example: A1B2C3D4E5F
+        - name: FORMAT_TYPE
+          in: query
+          description: Output format for results
+          required: false
+          schema:
+            type: string
+            enum:
+              - XML
+              - XML2
+              - JSON2
+              - Tabular
+              - Text
+              - HTML
+            default: JSON2
+        - name: HITLIST_SIZE
+          in: query
+          description: Number of hits to retrieve in results
+          required: false
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: BLAST search status or results
+          content:
+            application/json:
+              schema:
+                type: object
+            text/xml:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+
+components:
+  schemas:
+    BlastHit:
+      type: object
+      description: A BLAST alignment hit result
+      properties:
+        num:
+          type: integer
+          description: Hit number
+        id:
+          type: string
+          description: Hit sequence identifier
+        def:
+          type: string
+          description: Hit sequence definition/description
+        accession:
+          type: string
+          description: Sequence accession number
+        len:
+          type: integer
+          description: Length of hit sequence
+        hsps:
+          type: array
+          description: High-scoring segment pairs
+          items:
+            $ref: '#/components/schemas/Hsp'
+
+    Hsp:
+      type: object
+      description: High-scoring segment pair (alignment)
+      properties:
+        num:
+          type: integer
+          description: HSP number
+        bitScore:
+          type: number
+          description: Bit score
+        score:
+          type: integer
+          description: Raw alignment score
+        evalue:
+          type: number
+          description: Expectation value
+        queryFrom:
+          type: integer
+          description: Start position in query sequence
+        queryTo:
+          type: integer
+          description: End position in query sequence
+        hitFrom:
+          type: integer
+          description: Start position in hit sequence
+        hitTo:
+          type: integer
+          description: End position in hit sequence
+        identity:
+          type: integer
+          description: Number of identical positions
+        positive:
+          type: integer
+          description: Number of positive-scoring positions
+        gaps:
+          type: integer
+          description: Number of gaps
+        alignLen:
+          type: integer
+          description: Length of the alignment
+        querySeq:
+          type: string
+          description: Query sequence in alignment
+        hSeq:
+          type: string
+          description: Hit sequence in alignment
+        midline:
+          type: string
+          description: Alignment midline symbols

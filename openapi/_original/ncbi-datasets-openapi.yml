@@ -1,0 +1,350 @@
+openapi: 3.0.3
+info:
+  title: NCBI Datasets REST API
+  description: >-
+    The NCBI Datasets REST API v2 provides programmatic access to biological
+    data across NCBI databases including genome assemblies, gene records, and
+    protein sequences. Returns data packages or metadata for genomes by taxon,
+    assembly accession, or biosample; genes by gene ID or symbol; and viruses
+    by taxon. The full OpenAPI specification is available at
+    https://www.ncbi.nlm.nih.gov/datasets/docs/v2/openapi3/openapi3.docs.yaml
+    and on GitHub at github.com/ncbi/datasets.
+  version: 2.0.0
+  contact:
+    name: NCBI Datasets
+    url: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/
+  license:
+    name: Public Domain
+    url: https://www.usa.gov/government-works
+  externalDocs:
+    url: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/openapi3/openapi3.docs.yaml
+    description: Full OpenAPI 3.0 Specification
+servers:
+  - url: https://api.ncbi.nlm.nih.gov/datasets/v2
+    description: NCBI Datasets API v2
+tags:
+  - name: Genome
+    description: Genome assembly data and metadata
+  - name: Gene
+    description: Gene records and sequence data
+  - name: Taxonomy
+    description: NCBI taxonomy information
+paths:
+  /genome/taxon/{taxons}/dataset_report:
+    get:
+      operationId: getGenomeDatasetReport
+      summary: Get Genome Dataset Report
+      description: >-
+        Retrieve a report of genome assemblies for one or more taxonomic groups.
+        Returns assembly metadata including accession, assembly level, total length,
+        chromosome count, and submission dates.
+      tags:
+        - Genome
+      parameters:
+        - name: taxons
+          in: path
+          description: >-
+            Comma-separated list of taxa (species names, common names, or
+            NCBI taxonomy IDs)
+          required: true
+          schema:
+            type: string
+          example: 'human'
+        - name: api_key
+          in: query
+          description: NCBI API key for increased rate limits
+          required: false
+          schema:
+            type: string
+        - name: filters.assembly_level
+          in: query
+          description: Filter by assembly level
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - chromosome
+                - complete_genome
+                - contig
+                - scaffold
+          style: form
+          explode: true
+        - name: filters.assembly_source
+          in: query
+          description: Filter by assembly source
+          required: false
+          schema:
+            type: string
+            enum:
+              - refseq
+              - genbank
+        - name: page_size
+          in: query
+          description: Number of results per page (max 1000)
+          required: false
+          schema:
+            type: integer
+            default: 20
+        - name: page_token
+          in: query
+          description: Token for the next page of results
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Genome assembly report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenomeDatasetReport'
+
+  /genome/accession/{accessions}/dataset_report:
+    get:
+      operationId: getGenomeByAccession
+      summary: Get Genome by Accession
+      description: >-
+        Retrieve genome assembly metadata for specific assembly accessions
+        (e.g. GCF_000001405.40 for the human reference genome).
+      tags:
+        - Genome
+      parameters:
+        - name: accessions
+          in: path
+          description: Comma-separated assembly accession numbers
+          required: true
+          schema:
+            type: string
+          example: 'GCF_000001405.40'
+        - name: api_key
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Genome assembly metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenomeDatasetReport'
+
+  /gene/id/{gene_ids}:
+    get:
+      operationId: getGeneByIds
+      summary: Get Gene Records By IDs
+      description: >-
+        Retrieve gene records for one or more NCBI gene IDs, including gene
+        symbol, name, description, location, and associated sequence accessions.
+      tags:
+        - Gene
+      parameters:
+        - name: gene_ids
+          in: path
+          description: Comma-separated NCBI gene IDs
+          required: true
+          schema:
+            type: string
+          example: '672,675'
+        - name: api_key
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: page_size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 20
+      responses:
+        '200':
+          description: Gene records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneDatasetReport'
+
+  /gene/symbol/{symbols}/taxon/{taxon}:
+    get:
+      operationId: getGeneBySymbol
+      summary: Get Gene by Symbol and Taxon
+      description: >-
+        Retrieve gene records by gene symbol for a specific organism. Returns
+        gene details including ID, name, description, location, and chromosome.
+      tags:
+        - Gene
+      parameters:
+        - name: symbols
+          in: path
+          description: Gene symbol(s) (e.g. BRCA1, TP53)
+          required: true
+          schema:
+            type: string
+          example: BRCA1
+        - name: taxon
+          in: path
+          description: Organism name or NCBI taxonomy ID
+          required: true
+          schema:
+            type: string
+          example: human
+        - name: api_key
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Gene records matching symbol and taxon
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneDatasetReport'
+
+  /taxonomy/taxon/{taxons}:
+    get:
+      operationId: getTaxonomy
+      summary: Get Taxonomy Information
+      description: >-
+        Retrieve NCBI taxonomy information for one or more taxa by name or
+        taxonomy ID, including scientific name, common name, lineage, and rank.
+      tags:
+        - Taxonomy
+      parameters:
+        - name: taxons
+          in: path
+          description: Comma-separated taxon names or taxonomy IDs
+          required: true
+          schema:
+            type: string
+          example: '9606'
+        - name: api_key
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Taxonomy information
+          content:
+            application/json:
+              schema:
+                type: object
+
+components:
+  schemas:
+    GenomeDatasetReport:
+      type: object
+      description: Genome assembly dataset report
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenomeAssembly'
+        totalCount:
+          type: integer
+        nextPageToken:
+          type: string
+
+    GenomeAssembly:
+      type: object
+      description: A genome assembly record
+      properties:
+        accession:
+          type: string
+          description: Assembly accession (e.g. GCF_000001405.40)
+        currentAccession:
+          type: string
+        submitter:
+          type: string
+        organism:
+          type: object
+          properties:
+            taxId:
+              type: integer
+            sciName:
+              type: string
+            commonName:
+              type: string
+        assemblyInfo:
+          type: object
+          properties:
+            assemblyLevel:
+              type: string
+            assemblyStatus:
+              type: string
+            assemblyName:
+              type: string
+            submissionDate:
+              type: string
+              format: date
+            releaseDate:
+              type: string
+              format: date
+        assemblyStats:
+          type: object
+          properties:
+            totalLength:
+              type: integer
+            numberOfChromosomes:
+              type: integer
+            contigN50:
+              type: integer
+            scaffoldN50:
+              type: integer
+            gcCount:
+              type: integer
+            gcPercent:
+              type: number
+
+    GeneDatasetReport:
+      type: object
+      description: Gene dataset report
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeneRecord'
+        totalCount:
+          type: integer
+
+    GeneRecord:
+      type: object
+      description: An NCBI gene record
+      properties:
+        geneId:
+          type: integer
+          description: NCBI gene ID
+        symbol:
+          type: string
+          description: Official gene symbol
+        description:
+          type: string
+          description: Gene description
+        taxId:
+          type: integer
+          description: NCBI taxonomy ID
+        organism:
+          type: object
+          properties:
+            sciName:
+              type: string
+            commonName:
+              type: string
+        chromosomes:
+          type: array
+          items:
+            type: string
+          description: Chromosomes where gene is located
+        type:
+          type: string
+          description: Gene type (protein-coding, ncRNA, pseudogene, etc.)
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
