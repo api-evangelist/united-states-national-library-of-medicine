@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI URL BLAST Genome API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Genome",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Genome Dataset Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/genome/taxon/:taxons/dataset_report",
+            "params": [
+              {
+                "name": "taxons",
+                "value": "human",
+                "type": "path",
+                "description": "Comma-separated list of taxa (species names, common names, or NCBI taxonomy IDs)"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "NCBI API key for increased rate limits"
+              },
+              {
+                "name": "filters.assembly_level",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assembly level"
+              },
+              {
+                "name": "filters.assembly_source",
+                "value": "",
+                "type": "query",
+                "description": "Filter by assembly source"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (max 1000)"
+              },
+              {
+                "name": "page_token",
+                "value": "",
+                "type": "query",
+                "description": "Token for the next page of results"
+              }
+            ]
+          },
+          "docs": "Retrieve a report of genome assemblies for one or more taxonomic groups. Returns assembly metadata including accession, assembly level, total length, chromosome count, and submission dates."
+        },
+        {
+          "info": {
+            "name": "Get Genome by Accession",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/genome/accession/:accessions/dataset_report",
+            "params": [
+              {
+                "name": "accessions",
+                "value": "GCF_000001405.40",
+                "type": "path",
+                "description": "Comma-separated assembly accession numbers"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve genome assembly metadata for specific assembly accessions (e.g. GCF_000001405.40 for the human reference genome)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

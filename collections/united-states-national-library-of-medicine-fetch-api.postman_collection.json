@@ -1,0 +1,285 @@
+{
+  "item": [
+    {
+      "id": "7a242dbf-2f6b-46ac-ab01-d6354713b8ff",
+      "name": "Fetch",
+      "description": {
+        "content": "Retrieve records from Entrez databases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "75ee04a5-a833-4f1a-b10a-956ef03df039",
+          "name": "Fetch Records",
+          "request": {
+            "name": "Fetch Records",
+            "description": {
+              "content": "Retrieve full records from an Entrez database in various formats. Commonly used to retrieve PubMed article abstracts, nucleotide sequences in FASTA format, or gene records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "efetch.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "(Required) Target Entrez database"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Comma-separated list of UIDs to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "NCBI API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "rettype",
+                  "value": "<string>",
+                  "description": "Record type to return (e.g. abstract, medline, fasta, gb, docsum)"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "<string>",
+                  "description": "Output format"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmax",
+                  "value": "20",
+                  "description": "Maximum number of records to retrieve"
+                },
+                {
+                  "disabled": false,
+                  "key": "retstart",
+                  "value": "<integer>",
+                  "description": "Starting index in the UID list"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ad574c20-209e-45ae-b305-01adc5364ffc",
+              "name": "Requested records in the specified format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "efetch.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "id",
+                      "value": "33515491,33515492"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "rettype",
+                      "value": "abstract"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmax",
+                      "value": "20"
+                    },
+                    {
+                      "key": "retstart",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "feef8f86-04ea-44df-9333-00d4f947c699",
+          "name": "Get Document Summaries",
+          "request": {
+            "name": "Get Document Summaries",
+            "description": {
+              "content": "Retrieve document summaries (DocSums) for records from any Entrez database. Returns a concise summary of record attributes including title, authors, journal, and publication date for PubMed records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "esummary.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "(Required) Target Entrez database"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "Comma-separated list of UIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "NCBI API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca708263-8f7f-4b77-9889-dbe42bb713b4",
+              "name": "Document summaries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "esummary.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "id",
+                      "value": "33515491,33515492"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"key_0\": {\n      \"uid\": \"string\",\n      \"pubdate\": \"string\",\n      \"epubdate\": \"string\",\n      \"source\": \"string\",\n      \"title\": \"string\",\n      \"volume\": \"string\",\n      \"issue\": \"string\",\n      \"pages\": \"string\",\n      \"fulljournalname\": \"string\",\n      \"doi\": \"string\",\n      \"pmcrefcount\": 6746,\n      \"pubtype\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"key_1\": {\n      \"uid\": \"string\",\n      \"pubdate\": \"string\",\n      \"epubdate\": \"string\",\n      \"source\": \"string\",\n      \"title\": \"string\",\n      \"volume\": \"string\",\n      \"issue\": \"string\",\n      \"pages\": \"string\",\n      \"fulljournalname\": \"string\",\n      \"doi\": \"string\",\n      \"pmcrefcount\": 1180,\n      \"pubtype\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blast.ncbi.nlm.nih.gov/blast",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c0db5f97-7897-4343-99c2-331667e1d195",
+    "name": "NCBI URL BLAST Fetch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.\n\nContact Support:\n Name: NCBI BLAST",
+      "type": "text/plain"
+    }
+  }
+}

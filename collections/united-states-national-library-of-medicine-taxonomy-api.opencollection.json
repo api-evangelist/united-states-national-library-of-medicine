@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI URL BLAST Taxonomy API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Taxonomy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Taxonomy Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/taxonomy/taxon/:taxons",
+            "params": [
+              {
+                "name": "taxons",
+                "value": "9606",
+                "type": "path",
+                "description": "Comma-separated taxon names or taxonomy IDs"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve NCBI taxonomy information for one or more taxa by name or taxonomy ID, including scientific name, common name, lineage, and rank."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

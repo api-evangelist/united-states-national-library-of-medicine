@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI URL BLAST Link API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Link",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Linked Records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/elink.fcgi",
+            "params": [
+              {
+                "name": "dbfrom",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Source database"
+              },
+              {
+                "name": "db",
+                "value": "",
+                "type": "query",
+                "description": "Target database (leave empty for related records in same db)"
+              },
+              {
+                "name": "id",
+                "value": "33515491",
+                "type": "query",
+                "description": "Comma-separated source UIDs"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cmd",
+                "value": "",
+                "type": "query",
+                "description": "Link command (neighbor, prlinks, llinks, acheck, ncheck, lcheck)"
+              },
+              {
+                "name": "linkname",
+                "value": "",
+                "type": "query",
+                "description": "Named link to follow (e.g. pubmed_pubmed_citedin)"
+              },
+              {
+                "name": "retmode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Find records related to a set of input UIDs in any Entrez database. Supports finding related articles, linked sequences, gene-to-protein links, and other cross-database connections."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

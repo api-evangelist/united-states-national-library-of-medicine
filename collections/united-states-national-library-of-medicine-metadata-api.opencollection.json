@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI URL BLAST Metadata API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Dataset Size",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/stats/size",
+            "params": [
+              {
+                "name": "query.cond",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter.overallStatus",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the total number of clinical trials in the ClinicalTrials.gov database, optionally filtered by query parameters."
+        },
+        {
+          "info": {
+            "name": "Get Study Fields Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/studies/metadata"
+          },
+          "docs": "Retrieve metadata about all available data fields in the ClinicalTrials.gov study record, including field names, types, and descriptions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

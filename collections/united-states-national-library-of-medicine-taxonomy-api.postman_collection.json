@@ -1,0 +1,133 @@
+{
+  "item": [
+    {
+      "id": "b68b394b-8910-4a42-8518-b831d92d71ce",
+      "name": "Taxonomy",
+      "description": {
+        "content": "NCBI taxonomy information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c576e17a-54bf-4332-9d92-1aa50c2fe263",
+          "name": "Get Taxonomy Information",
+          "request": {
+            "name": "Get Taxonomy Information",
+            "description": {
+              "content": "Retrieve NCBI taxonomy information for one or more taxa by name or taxonomy ID, including scientific name, common name, lineage, and rank.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "taxonomy",
+                "taxon",
+                ":taxons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taxons",
+                  "description": "(Required) Comma-separated taxon names or taxonomy IDs"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1f28463-ecea-4296-95d3-e4f4df3509ad",
+              "name": "Taxonomy information",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "taxonomy",
+                    "taxon",
+                    ":taxons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taxons",
+                      "description": "(Required) Comma-separated taxon names or taxonomy IDs"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blast.ncbi.nlm.nih.gov/blast",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ae7a7714-724d-4bb9-9884-67a7fbd6e78f",
+    "name": "NCBI URL BLAST Taxonomy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.\n\nContact Support:\n Name: NCBI BLAST",
+      "type": "text/plain"
+    }
+  }
+}

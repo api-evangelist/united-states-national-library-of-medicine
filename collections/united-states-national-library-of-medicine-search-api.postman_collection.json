@@ -1,0 +1,315 @@
+{
+  "item": [
+    {
+      "id": "501d4322-54a1-46a6-b8f1-1f4cce34a779",
+      "name": "Search",
+      "description": {
+        "content": "Search Entrez databases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a2564cf5-fe02-4d40-8930-42db86bd895d",
+          "name": "Search Entrez Database",
+          "request": {
+            "name": "Search Entrez Database",
+            "description": {
+              "content": "Search any Entrez database and retrieve document identifiers (UIDs) matching a query. Supports full Entrez query syntax including Boolean operators, field tags, and date ranges.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "esearch.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "(Required) Target Entrez database (e.g. pubmed, nuccore, protein, gene, snp, mesh, pmc)"
+                },
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>",
+                  "description": "(Required) Entrez text query with optional field tags and Boolean operators"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>",
+                  "description": "NCBI API key for increased rate limits"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmax",
+                  "value": "20",
+                  "description": "Maximum number of UIDs to return (default 20, max 10000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "retstart",
+                  "value": "0",
+                  "description": "Index of first UID in results (for pagination)"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "json",
+                  "description": "Output format"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Sort order for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "datetype",
+                  "value": "<string>",
+                  "description": "Date type for date range filtering"
+                },
+                {
+                  "disabled": false,
+                  "key": "mindate",
+                  "value": "<string>",
+                  "description": "Minimum date for range filter (YYYY/MM/DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxdate",
+                  "value": "<string>",
+                  "description": "Maximum date for range filter (YYYY/MM/DD)"
+                },
+                {
+                  "disabled": false,
+                  "key": "usehistory",
+                  "value": "<string>",
+                  "description": "Store results on NCBI server (y/n)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c0add87-7981-4c4b-9c0c-6419d7c128ba",
+              "name": "Search results with UIDs and counts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "esearch.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "term",
+                      "value": "cancer[Title] AND 2023[PDAT]"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmax",
+                      "value": "20"
+                    },
+                    {
+                      "key": "retstart",
+                      "value": "0"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "json"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "datetype",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mindate",
+                      "value": "2023/01/01"
+                    },
+                    {
+                      "key": "maxdate",
+                      "value": "2023/12/31"
+                    },
+                    {
+                      "key": "usehistory",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"esearchresult\": {\n    \"count\": \"string\",\n    \"retmax\": \"string\",\n    \"retstart\": \"string\",\n    \"querykey\": \"string\",\n    \"webenv\": \"string\",\n    \"idlist\": [\n      \"string\",\n      \"string\"\n    ],\n    \"querytranslation\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d4853ec-69eb-4cc2-bcd2-4425fcaf553a",
+          "name": "Check Query Spelling",
+          "request": {
+            "name": "Check Query Spelling",
+            "description": {
+              "content": "Retrieve spelling suggestions for a search term in a given Entrez database. Helpful for correcting misspelled gene names, species names, or medical terms.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "espell.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "(Required) Target Entrez database"
+                },
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>",
+                  "description": "(Required) Query term to check spelling for"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7c43fe61-7b7d-481e-8a17-040650914d7a",
+              "name": "Spelling suggestions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "espell.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "db",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "term",
+                      "value": "asthmaa"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>(string)</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blast.ncbi.nlm.nih.gov/blast",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "decdebe6-9c9f-49ef-bd5f-3ad8f0dc455e",
+    "name": "NCBI URL BLAST Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.\n\nContact Support:\n Name: NCBI BLAST",
+      "type": "text/plain"
+    }
+  }
+}

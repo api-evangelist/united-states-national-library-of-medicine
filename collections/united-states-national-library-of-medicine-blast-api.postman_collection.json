@@ -1,0 +1,362 @@
+{
+  "item": [
+    {
+      "id": "a604122d-de69-46d7-8c42-af2c6f6ca5ed",
+      "name": "BLAST",
+      "description": {
+        "content": "BLAST sequence search submission and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71d3e981-0dc6-488f-b5df-3d52e1ea8ab8",
+          "name": "Submit BLAST Search",
+          "request": {
+            "name": "Submit BLAST Search",
+            "description": {
+              "content": "Submit a BLAST sequence search and receive a Request ID (RID) for status checking and result retrieval. Include CMD=Put and required parameters in the request body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Blast.cgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "text/html"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "CMD",
+                  "value": "<string>",
+                  "description": "(Required) Command type"
+                },
+                {
+                  "disabled": false,
+                  "key": "PROGRAM",
+                  "value": "<string>",
+                  "description": "(Required) BLAST program to use"
+                },
+                {
+                  "disabled": false,
+                  "key": "DATABASE",
+                  "value": "<string>",
+                  "description": "(Required) Target sequence database"
+                },
+                {
+                  "disabled": false,
+                  "key": "QUERY",
+                  "value": "<string>",
+                  "description": "(Required) Query sequence in FASTA format or accession number"
+                },
+                {
+                  "disabled": false,
+                  "key": "FORMAT_TYPE",
+                  "value": "<string>",
+                  "description": "Output format type"
+                },
+                {
+                  "disabled": false,
+                  "key": "HITLIST_SIZE",
+                  "value": "100",
+                  "description": "Number of hits to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "EXPECT",
+                  "value": "10",
+                  "description": "E-value threshold"
+                },
+                {
+                  "disabled": false,
+                  "key": "WORD_SIZE",
+                  "value": "<integer>",
+                  "description": "Word size for initial match"
+                },
+                {
+                  "disabled": false,
+                  "key": "FILTER",
+                  "value": "<string>",
+                  "description": "Low complexity filter (T or F)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a2e807a9-e347-4e8d-998c-25bd91379b63",
+              "name": "HTML page containing RID and RTOE values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Blast.cgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/html"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Command type",
+                        "type": "text/plain"
+                      },
+                      "key": "CMD",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) BLAST program to use",
+                        "type": "text/plain"
+                      },
+                      "key": "PROGRAM",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target sequence database",
+                        "type": "text/plain"
+                      },
+                      "key": "DATABASE",
+                      "value": "nt"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Query sequence in FASTA format or accession number",
+                        "type": "text/plain"
+                      },
+                      "key": "QUERY",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output format type",
+                        "type": "text/plain"
+                      },
+                      "key": "FORMAT_TYPE",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Number of hits to return",
+                        "type": "text/plain"
+                      },
+                      "key": "HITLIST_SIZE",
+                      "value": "100"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "E-value threshold",
+                        "type": "text/plain"
+                      },
+                      "key": "EXPECT",
+                      "value": "10"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Word size for initial match",
+                        "type": "text/plain"
+                      },
+                      "key": "WORD_SIZE",
+                      "value": "<integer>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Low complexity filter (T or F)",
+                        "type": "text/plain"
+                      },
+                      "key": "FILTER",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/html"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76f8820b-ab43-4fd0-80e2-36bcf7fbf178",
+          "name": "Get BLAST Results or Status",
+          "request": {
+            "name": "Get BLAST Results or Status",
+            "description": {
+              "content": "Check the status of a BLAST search or retrieve results using the Request ID (RID). Use CMD=Get with the RID to check status or retrieve results. Format_Type parameter controls output format for results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "Blast.cgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "CMD",
+                  "value": "<string>",
+                  "description": "(Required) Command type (Get to check status/retrieve results)"
+                },
+                {
+                  "disabled": false,
+                  "key": "RID",
+                  "value": "<string>",
+                  "description": "(Required) Request ID from submission response"
+                },
+                {
+                  "disabled": false,
+                  "key": "FORMAT_TYPE",
+                  "value": "JSON2",
+                  "description": "Output format for results"
+                },
+                {
+                  "disabled": false,
+                  "key": "HITLIST_SIZE",
+                  "value": "100",
+                  "description": "Number of hits to retrieve in results"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e49778c1-970e-47ff-bc66-763b66203aff",
+              "name": "BLAST search status or results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "Blast.cgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "CMD",
+                      "value": "Get"
+                    },
+                    {
+                      "key": "RID",
+                      "value": "A1B2C3D4E5F"
+                    },
+                    {
+                      "key": "FORMAT_TYPE",
+                      "value": "JSON2"
+                    },
+                    {
+                      "key": "HITLIST_SIZE",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blast.ncbi.nlm.nih.gov/blast",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "37ff8131-d4db-4d47-96f6-d54069b4ae79",
+    "name": "NCBI URL BLAST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.\n\nContact Support:\n Name: NCBI BLAST",
+      "type": "text/plain"
+    }
+  }
+}

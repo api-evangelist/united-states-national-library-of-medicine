@@ -1,0 +1,127 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI URL BLAST Search API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search Entrez Database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/esearch.fcgi",
+            "params": [
+              {
+                "name": "db",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Target Entrez database (e.g. pubmed, nuccore, protein, gene, snp, mesh, pmc)"
+              },
+              {
+                "name": "term",
+                "value": "cancer[Title] AND 2023[PDAT]",
+                "type": "query",
+                "description": "Entrez text query with optional field tags and Boolean operators"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query",
+                "description": "NCBI API key for increased rate limits"
+              },
+              {
+                "name": "retmax",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of UIDs to return (default 20, max 10000)"
+              },
+              {
+                "name": "retstart",
+                "value": "",
+                "type": "query",
+                "description": "Index of first UID in results (for pagination)"
+              },
+              {
+                "name": "retmode",
+                "value": "",
+                "type": "query",
+                "description": "Output format"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order for results"
+              },
+              {
+                "name": "datetype",
+                "value": "",
+                "type": "query",
+                "description": "Date type for date range filtering"
+              },
+              {
+                "name": "mindate",
+                "value": "2023/01/01",
+                "type": "query",
+                "description": "Minimum date for range filter (YYYY/MM/DD)"
+              },
+              {
+                "name": "maxdate",
+                "value": "2023/12/31",
+                "type": "query",
+                "description": "Maximum date for range filter (YYYY/MM/DD)"
+              },
+              {
+                "name": "usehistory",
+                "value": "",
+                "type": "query",
+                "description": "Store results on NCBI server (y/n)"
+              }
+            ]
+          },
+          "docs": "Search any Entrez database and retrieve document identifiers (UIDs) matching a query. Supports full Entrez query syntax including Boolean operators, field tags, and date ranges."
+        },
+        {
+          "info": {
+            "name": "Check Query Spelling",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/espell.fcgi",
+            "params": [
+              {
+                "name": "db",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Target Entrez database"
+              },
+              {
+                "name": "term",
+                "value": "asthmaa",
+                "type": "query",
+                "description": "Query term to check spelling for"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve spelling suggestions for a search term in a given Entrez database. Helpful for correcting misspelled gene names, species names, or medical terms."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

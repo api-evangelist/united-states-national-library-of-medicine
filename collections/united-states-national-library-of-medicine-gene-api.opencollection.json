@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI URL BLAST Gene API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Gene",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Gene Records By IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/gene/id/:gene_ids",
+            "params": [
+              {
+                "name": "gene_ids",
+                "value": "672,675",
+                "type": "path",
+                "description": "Comma-separated NCBI gene IDs"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve gene records for one or more NCBI gene IDs, including gene symbol, name, description, location, and associated sequence accessions."
+        },
+        {
+          "info": {
+            "name": "Get Gene by Symbol and Taxon",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/gene/symbol/:symbols/taxon/:taxon",
+            "params": [
+              {
+                "name": "symbols",
+                "value": "BRCA1",
+                "type": "path",
+                "description": "Gene symbol(s) (e.g. BRCA1, TP53)"
+              },
+              {
+                "name": "taxon",
+                "value": "human",
+                "type": "path",
+                "description": "Organism name or NCBI taxonomy ID"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve gene records by gene symbol for a specific organism. Returns gene details including ID, name, description, location, and chromosome."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,261 @@
+{
+  "item": [
+    {
+      "id": "9b9b2776-edb7-40be-a4bf-cb7065a4f3db",
+      "name": "Gene",
+      "description": {
+        "content": "Gene records and sequence data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "056a3b28-9c2c-4bf8-b252-64a6cf8c0429",
+          "name": "Get Gene Records By IDs",
+          "request": {
+            "name": "Get Gene Records By IDs",
+            "description": {
+              "content": "Retrieve gene records for one or more NCBI gene IDs, including gene symbol, name, description, location, and associated sequence accessions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gene",
+                "id",
+                ":gene_ids"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "gene_ids",
+                  "description": "(Required) Comma-separated NCBI gene IDs"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1901d778-109f-43fe-af68-bdd0af2c0cef",
+              "name": "Gene records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gene",
+                    "id",
+                    ":gene_ids"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "gene_ids",
+                      "description": "(Required) Comma-separated NCBI gene IDs"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reports\": [\n    {\n      \"geneId\": 1802,\n      \"symbol\": \"string\",\n      \"description\": \"string\",\n      \"taxId\": 9152,\n      \"organism\": {\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"chromosomes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\"\n    },\n    {\n      \"geneId\": 9802,\n      \"symbol\": \"string\",\n      \"description\": \"string\",\n      \"taxId\": 8563,\n      \"organism\": {\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"chromosomes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\"\n    }\n  ],\n  \"totalCount\": 8219\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0403d4b7-1a17-4633-bd8d-257fe4700a1a",
+          "name": "Get Gene by Symbol and Taxon",
+          "request": {
+            "name": "Get Gene by Symbol and Taxon",
+            "description": {
+              "content": "Retrieve gene records by gene symbol for a specific organism. Returns gene details including ID, name, description, location, and chromosome.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gene",
+                "symbol",
+                ":symbols",
+                "taxon",
+                ":taxon"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "symbols",
+                  "description": "(Required) Gene symbol(s) (e.g. BRCA1, TP53)"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "taxon",
+                  "description": "(Required) Organism name or NCBI taxonomy ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5184d426-d9ea-4a3c-8840-3e2416feab71",
+              "name": "Gene records matching symbol and taxon",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gene",
+                    "symbol",
+                    ":symbols",
+                    "taxon",
+                    ":taxon"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbols",
+                      "description": "(Required) Gene symbol(s) (e.g. BRCA1, TP53)"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "taxon",
+                      "description": "(Required) Organism name or NCBI taxonomy ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reports\": [\n    {\n      \"geneId\": 2376,\n      \"symbol\": \"string\",\n      \"description\": \"string\",\n      \"taxId\": 8591,\n      \"organism\": {\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"chromosomes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\"\n    },\n    {\n      \"geneId\": 4903,\n      \"symbol\": \"string\",\n      \"description\": \"string\",\n      \"taxId\": 2130,\n      \"organism\": {\n        \"sciName\": \"string\",\n        \"commonName\": \"string\"\n      },\n      \"chromosomes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"type\": \"string\"\n    }\n  ],\n  \"totalCount\": 8407\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blast.ncbi.nlm.nih.gov/blast",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fe3c1742-e6e2-4758-a071-b7fd07c1ee58",
+    "name": "NCBI URL BLAST Gene API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.\n\nContact Support:\n Name: NCBI BLAST",
+      "type": "text/plain"
+    }
+  }
+}

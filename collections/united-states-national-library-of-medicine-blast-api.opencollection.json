@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI URL BLAST API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BLAST",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get BLAST Results or Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi",
+            "params": [
+              {
+                "name": "CMD",
+                "value": "Get",
+                "type": "query",
+                "description": "Command type (Get to check status/retrieve results)"
+              },
+              {
+                "name": "RID",
+                "value": "A1B2C3D4E5F",
+                "type": "query",
+                "description": "Request ID from submission response"
+              },
+              {
+                "name": "FORMAT_TYPE",
+                "value": "",
+                "type": "query",
+                "description": "Output format for results"
+              },
+              {
+                "name": "HITLIST_SIZE",
+                "value": "",
+                "type": "query",
+                "description": "Number of hits to retrieve in results"
+              }
+            ]
+          },
+          "docs": "Check the status of a BLAST search or retrieve results using the Request ID (RID). Use CMD=Get with the RID to check status or retrieve results. Format_Type parameter controls output format for results."
+        },
+        {
+          "info": {
+            "name": "Submit BLAST Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/Blast.cgi",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "CMD",
+                  "value": ""
+                },
+                {
+                  "name": "PROGRAM",
+                  "value": ""
+                },
+                {
+                  "name": "DATABASE",
+                  "value": ""
+                },
+                {
+                  "name": "QUERY",
+                  "value": ""
+                },
+                {
+                  "name": "FORMAT_TYPE",
+                  "value": ""
+                },
+                {
+                  "name": "HITLIST_SIZE",
+                  "value": ""
+                },
+                {
+                  "name": "EXPECT",
+                  "value": ""
+                },
+                {
+                  "name": "WORD_SIZE",
+                  "value": ""
+                },
+                {
+                  "name": "FILTER",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Submit a BLAST sequence search and receive a Request ID (RID) for status checking and result retrieval. Include CMD=Put and required parameters in the request body."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

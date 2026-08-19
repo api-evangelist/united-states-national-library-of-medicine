@@ -1,0 +1,172 @@
+{
+  "item": [
+    {
+      "id": "15825c43-3451-4acf-a791-441645abf578",
+      "name": "Link",
+      "description": {
+        "content": "Find linked records across databases",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "062c217a-8bc3-4aba-a8ae-05ec72c92b5d",
+          "name": "Get Linked Records",
+          "request": {
+            "name": "Get Linked Records",
+            "description": {
+              "content": "Find records related to a set of input UIDs in any Entrez database. Supports finding related articles, linked sequences, gene-to-protein links, and other cross-database connections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "elink.fcgi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dbfrom",
+                  "value": "<string>",
+                  "description": "(Required) Source database"
+                },
+                {
+                  "disabled": false,
+                  "key": "db",
+                  "value": "<string>",
+                  "description": "Target database (leave empty for related records in same db)"
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated source UIDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "api_key",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cmd",
+                  "value": "neighbor",
+                  "description": "Link command (neighbor, prlinks, llinks, acheck, ncheck, lcheck)"
+                },
+                {
+                  "disabled": false,
+                  "key": "linkname",
+                  "value": "<string>",
+                  "description": "Named link to follow (e.g. pubmed_pubmed_citedin)"
+                },
+                {
+                  "disabled": false,
+                  "key": "retmode",
+                  "value": "json"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ce334725-bc0c-46d0-ba9f-dc230cc6ceed",
+              "name": "Linked record UIDs and link names",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "elink.fcgi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dbfrom",
+                      "value": "pubmed"
+                    },
+                    {
+                      "key": "db",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "id",
+                      "value": "33515491"
+                    },
+                    {
+                      "key": "api_key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cmd",
+                      "value": "neighbor"
+                    },
+                    {
+                      "key": "linkname",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "retmode",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://blast.ncbi.nlm.nih.gov/blast",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5c161c5b-2cd9-49ee-ba50-218c69488a7b",
+    "name": "NCBI URL BLAST Link API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.\n\nContact Support:\n Name: NCBI BLAST",
+      "type": "text/plain"
+    }
+  }
+}

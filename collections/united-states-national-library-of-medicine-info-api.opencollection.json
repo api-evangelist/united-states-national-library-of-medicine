@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NCBI URL BLAST Info API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Database Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://blast.ncbi.nlm.nih.gov/blast/einfo.fcgi",
+            "params": [
+              {
+                "name": "db",
+                "value": "pubmed",
+                "type": "query",
+                "description": "Database name (omit to list all databases)"
+              },
+              {
+                "name": "api_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "retmode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve information about Entrez databases including list of all databases, or details about a specific database including field names, links, and statistics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
