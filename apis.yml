@@ -303,6 +303,12 @@ apis:
     url: https://clinicaltrials.gov/data-api/api#introduction
 name: United States National Library of Medicine
 tags:
+  - Federal-Government
+  - Biomedical Research
+  - Healthcare
+  - Genomics
+  - Literature
+tags_raw:
   - Federal Government
   - Biomedical Research
   - Healthcare
