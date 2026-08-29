@@ -342,6 +342,9 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/united-states-national-library-of-medicine.png
 common:
+  - type: CapabilityMap
+    url: capabilities/united-states-national-library-of-medicine-capability-edges.yml
+    name: United States National Library of Medicine Business Capability Map
   - type: IssueTracker
     url: https://github.com/ncbi/datasets/issues
   - type: Releases

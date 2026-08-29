@@ -1,0 +1,26 @@
+slug: united-states-national-library-of-medicine
+provider: United States National Library of Medicine
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Pharmaceuticals & Life Sciences
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Studies
+  spec_file: united-states-national-library-of-medicine-studies-api-openapi.yml
+  capability_id: BC-1520
+  capability_id_l1: BC-1520
+  capability_name: Clinical Trials Management
+  confidence: 0.75
+  evidence: GET /studies searchStudies Search Clinical Trial Studies; 'Returns study information, eligibility
+    criteria, outcomes, locations, sponsor and collaborator data' ; schemas ProtocolSection, Study
+  reason: Operations expose registered clinical trial protocol and results data, squarely within Clinical
+    Trials Management. L2 left null because the surface spans design, subjects/eligibility, sites and
+    outcomes without focusing on one sub-capability.
