@@ -1,32 +1,43 @@
 {
   "provider": "united-states-national-library-of-medicine",
   "sources": [
-    "united-states-national-library-of-medicine-blast-api-openapi.yml",
-    "united-states-national-library-of-medicine-fetch-api-openapi.yml",
-    "united-states-national-library-of-medicine-gene-api-openapi.yml",
-    "united-states-national-library-of-medicine-genome-api-openapi.yml",
-    "united-states-national-library-of-medicine-info-api-openapi.yml",
-    "united-states-national-library-of-medicine-link-api-openapi.yml",
-    "united-states-national-library-of-medicine-metadata-api-openapi.yml",
-    "united-states-national-library-of-medicine-search-api-openapi.yml",
-    "united-states-national-library-of-medicine-studies-api-openapi.yml",
-    "united-states-national-library-of-medicine-taxonomy-api-openapi.yml"
+    "_original/ncbi-blast-openapi.yml",
+    "_original/ncbi-datasets-openapi.yml",
+    "_original/ncbi-e-utilities-openapi.yml",
+    "_original/nlm-clinicaltrials-openapi.yml"
   ],
   "outputs": [
     "united-states-national-library-of-medicine-blast-api-openapi.yml",
-    "united-states-national-library-of-medicine-fetch-api-openapi.yml",
     "united-states-national-library-of-medicine-gene-api-openapi.yml",
     "united-states-national-library-of-medicine-genome-api-openapi.yml",
+    "united-states-national-library-of-medicine-taxonomy-api-openapi.yml",
+    "united-states-national-library-of-medicine-fetch-api-openapi.yml",
     "united-states-national-library-of-medicine-info-api-openapi.yml",
     "united-states-national-library-of-medicine-link-api-openapi.yml",
-    "united-states-national-library-of-medicine-metadata-api-openapi.yml",
     "united-states-national-library-of-medicine-search-api-openapi.yml",
-    "united-states-national-library-of-medicine-studies-api-openapi.yml",
-    "united-states-national-library-of-medicine-taxonomy-api-openapi.yml"
+    "united-states-national-library-of-medicine-metadata-api-openapi.yml",
+    "united-states-national-library-of-medicine-studies-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (4 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ncbi-blast-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "ncbi-datasets-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "ncbi-e-utilities-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "nlm-clinicaltrials-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "united-states-national-library-of-medicine-blast-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-fetch-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-gene-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-genome-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-link-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-studies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "united-states-national-library-of-medicine-taxonomy-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

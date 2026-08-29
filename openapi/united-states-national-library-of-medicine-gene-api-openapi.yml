@@ -1,17 +1,20 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: NCBI URL BLAST Gene API
-  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
-  version: 1.0.0
+  title: NCBI Datasets REST Gene API
+  description: The NCBI Datasets REST API v2 provides programmatic access to biological data across NCBI databases including genome assemblies, gene records, and protein sequences. Returns data packages or metadata for genomes by taxon, assembly accession, or biosample; genes by gene ID or symbol; and viruses by taxon. The full OpenAPI specification is available at https://www.ncbi.nlm.nih.gov/datasets/docs/v2/openapi3/openapi3.docs.yaml and on GitHub at github.com/ncbi/datasets.
+  version: 2.0.0
   contact:
-    name: NCBI BLAST
-    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+    name: NCBI Datasets
+    url: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/
   license:
     name: Public Domain
     url: https://www.usa.gov/government-works
+  externalDocs:
+    url: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/openapi3/openapi3.docs.yaml
+    description: Full OpenAPI 3.0 Specification
 servers:
-- url: https://blast.ncbi.nlm.nih.gov/blast
-  description: NCBI BLAST Server
+- url: https://api.ncbi.nlm.nih.gov/datasets/v2
+  description: NCBI Datasets API v2
 tags:
 - name: Gene
   description: Gene records and sequence data
@@ -126,3 +129,8 @@ components:
             $ref: '#/components/schemas/GeneRecord'
         totalCount:
           type: integer
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key

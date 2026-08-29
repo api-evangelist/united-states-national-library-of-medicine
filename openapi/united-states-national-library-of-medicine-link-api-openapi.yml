@@ -1,17 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: NCBI URL BLAST Link API
-  description: 'The NCBI BLAST URL API allows developers to submit BLAST (Basic Local Alignment Search Tool) sequence searches for processing at NCBI using HTTPS. The API operates in three phases: (1) PUT request to submit a search and receive a request ID (RID), (2) polling GET requests to check search status, (3) GET request to retrieve results in the desired format. Supports nucleotide (blastn, blastx) and protein (blastp, tblastn, tblastx) searches.'
+  title: NCBI E-Utilities Link API
+  description: The NCBI E-Utilities (Entrez Programming Utilities) are the public API to the NCBI Entrez system providing access to all 41 Entrez databases including PubMed (biomedical literature), PMC (full-text articles), Gene, Nuccore (nucleotide sequences), Protein, SNP, and more. Supports search, retrieval, linking, posting, and spelling operations. API keys from https://www.ncbi.nlm.nih.gov/account/ increase the rate limit from 3 to 10 requests per second.
   version: 1.0.0
   contact:
-    name: NCBI BLAST
-    url: https://blast.ncbi.nlm.nih.gov/doc/blast-help/developerinfo.html
+    name: NCBI
+    url: https://www.ncbi.nlm.nih.gov/home/develop/api/
+    email: info@ncbi.nlm.nih.gov
   license:
     name: Public Domain
     url: https://www.usa.gov/government-works
 servers:
-- url: https://blast.ncbi.nlm.nih.gov/blast
-  description: NCBI BLAST Server
+- url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils
+  description: NCBI E-Utilities API
 tags:
 - name: Link
   description: Find linked records across databases
@@ -75,3 +76,10 @@ paths:
             application/json:
               schema:
                 type: object
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: api_key
+      description: NCBI API key from https://www.ncbi.nlm.nih.gov/account/
