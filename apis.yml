@@ -315,6 +315,18 @@ tags_raw:
   - Genomics
   - Literature
 kind: contract
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: false
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -330,6 +342,12 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/united-states-national-library-of-medicine.png
 common:
+  - type: IssueTracker
+    url: https://github.com/ncbi/datasets/issues
+  - type: Releases
+    url: https://github.com/ncbi/datasets/releases
+  - type: ContributionGuide
+    url: https://github.com/ncbi/datasets/blob/master/CONTRIBUTING.md
   - type: AgenticAccess
     url: agentic-access/united-states-national-library-of-medicine-agentic-access.yml
   - type: DomainSecurity
