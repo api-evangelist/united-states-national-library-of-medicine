@@ -26,7 +26,8 @@
     "ncbi-blast-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "ncbi-datasets-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "ncbi-e-utilities-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "nlm-clinicaltrials-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+    "nlm-clinicaltrials-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "united-states-national-library-of-medicine-blast-api-openapi.yml: previously refined output, superseded by openapi/_original/",

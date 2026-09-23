@@ -113,6 +113,18 @@ paths:
                 $ref: '#/components/schemas/GenomeDatasetReport'
 components:
   schemas:
+    GenomeDatasetReport:
+      type: object
+      description: Genome assembly dataset report
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenomeAssembly'
+        totalCount:
+          type: integer
+        nextPageToken:
+          type: string
     GenomeAssembly:
       type: object
       description: A genome assembly record
@@ -163,18 +175,6 @@ components:
               type: integer
             gcPercent:
               type: number
-    GenomeDatasetReport:
-      type: object
-      description: Genome assembly dataset report
-      properties:
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/GenomeAssembly'
-        totalCount:
-          type: integer
-        nextPageToken:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
