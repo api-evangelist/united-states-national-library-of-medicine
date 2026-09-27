@@ -199,6 +199,18 @@ paths:
           description: Study not found
 components:
   schemas:
+    Study:
+      type: object
+      description: A clinical trial study record from ClinicalTrials.gov
+      properties:
+        protocolSection:
+          $ref: '#/components/schemas/ProtocolSection'
+        resultsSection:
+          type: object
+          description: Clinical trial results (if available)
+        derivedSection:
+          type: object
+          description: Derived and computed fields
     ProtocolSection:
       type: object
       description: Protocol information for a clinical trial
@@ -310,18 +322,6 @@ components:
                     type: string
                   description:
                     type: string
-    Study:
-      type: object
-      description: A clinical trial study record from ClinicalTrials.gov
-      properties:
-        protocolSection:
-          $ref: '#/components/schemas/ProtocolSection'
-        resultsSection:
-          type: object
-          description: Clinical trial results (if available)
-        derivedSection:
-          type: object
-          description: Derived and computed fields
     StudySearchResponse:
       type: object
       description: Paginated search results
