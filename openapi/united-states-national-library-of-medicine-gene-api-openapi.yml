@@ -88,16 +88,6 @@ paths:
                 $ref: '#/components/schemas/GeneDatasetReport'
 components:
   schemas:
-    GeneDatasetReport:
-      type: object
-      description: Gene dataset report
-      properties:
-        reports:
-          type: array
-          items:
-            $ref: '#/components/schemas/GeneRecord'
-        totalCount:
-          type: integer
     GeneRecord:
       type: object
       description: An NCBI gene record
@@ -129,6 +119,16 @@ components:
         type:
           type: string
           description: Gene type (protein-coding, ncRNA, pseudogene, etc.)
+    GeneDatasetReport:
+      type: object
+      description: Gene dataset report
+      properties:
+        reports:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeneRecord'
+        totalCount:
+          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

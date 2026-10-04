@@ -199,20 +199,6 @@ paths:
           description: Study not found
 components:
   schemas:
-    StudySearchResponse:
-      type: object
-      description: Paginated search results
-      properties:
-        studies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Study'
-        nextPageToken:
-          type: string
-          description: Token for requesting the next page
-        totalCount:
-          type: integer
-          description: Total number of matching studies
     Study:
       type: object
       description: A clinical trial study record from ClinicalTrials.gov
@@ -336,3 +322,17 @@ components:
                     type: string
                   description:
                     type: string
+    StudySearchResponse:
+      type: object
+      description: Paginated search results
+      properties:
+        studies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Study'
+        nextPageToken:
+          type: string
+          description: Token for requesting the next page
+        totalCount:
+          type: integer
+          description: Total number of matching studies
