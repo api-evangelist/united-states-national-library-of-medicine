@@ -211,6 +211,20 @@ components:
         derivedSection:
           type: object
           description: Derived and computed fields
+    StudySearchResponse:
+      type: object
+      description: Paginated search results
+      properties:
+        studies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Study'
+        nextPageToken:
+          type: string
+          description: Token for requesting the next page
+        totalCount:
+          type: integer
+          description: Total number of matching studies
     ProtocolSection:
       type: object
       description: Protocol information for a clinical trial
@@ -322,17 +336,3 @@ components:
                     type: string
                   description:
                     type: string
-    StudySearchResponse:
-      type: object
-      description: Paginated search results
-      properties:
-        studies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Study'
-        nextPageToken:
-          type: string
-          description: Token for requesting the next page
-        totalCount:
-          type: integer
-          description: Total number of matching studies
